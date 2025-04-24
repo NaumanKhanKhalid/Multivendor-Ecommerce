@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ErrorLog extends Model
+{
+    protected $fillable = [
+        'module',
+        'action',
+        'message',
+        'stack_trace',
+        'input',
+        'user_id',
+        'status',
+    ];
+
+}
