@@ -9,7 +9,7 @@
                 <ul class="eccart-pro-items">
                     <li>
                         <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                src="assets/images/product-image/6_1.jpg" alt="product"></a>
+                                src="{{asset('frontend/assets/images/product-image/6_1.jpg')}}" alt="product"></a>
                         <div class="ec-pro-content">
                             <a href="product-left-sidebar.html" class="cart_pro_title">T-shirt For Women</a>
                             <span class="cart-price"><span>$76.00</span> x 1</span>
@@ -21,7 +21,7 @@
                     </li>
                     <li>
                         <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                src="assets/images/product-image/12_1.jpg" alt="product"></a>
+                                src="{{asset('frontend/assets/images/product-image/12_1.jpg')}}" alt="product"></a>
                         <div class="ec-pro-content">
                             <a href="product-left-sidebar.html" class="cart_pro_title">Women Leather Shoes</a>
                             <span class="cart-price"><span>$64.00</span> x 1</span>
@@ -33,7 +33,7 @@
                     </li>
                     <li>
                         <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                src="assets/images/product-image/3_1.jpg" alt="product"></a>
+                                src="{{asset('frontend/assets/images/product-image/3_1.jpg')}}" alt="product"></a>
                         <div class="ec-pro-content">
                             <a href="product-left-sidebar.html" class="cart_pro_title">Girls Nylon Purse</a>
                             <span class="cart-price"><span>$59.00</span> x 1</span>

@@ -15,9 +15,11 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-3 ec-footer-contact">
                         <div class="ec-footer-widget">
-                            <div class="ec-footer-logo"><a href="#"><img src="assets/images/logo/footer-logo.png"
-                                        alt=""><img class="dark-footer-logo" src="assets/images/logo/dark-logo.png"
-                                        alt="Site Logo" style="display: none;" /></a></div>
+                            <div class="ec-footer-logo"><a href="#"><img
+                                        src="{{asset('frontend/assets/images/logo/footer-logo.png')}}" alt=""><img
+                                        class="dark-footer-logo"
+                                        src="{{asset('frontend/assets/images/logo/dark-logo.png')}}" alt="Site Logo"
+                                        style="display: none;" /></a></div>
                             <h4 class="ec-footer-heading">Contact us</h4>
                             <div class="ec-footer-links">
                                 <ul class="align-items-center">
@@ -82,8 +84,7 @@
                                         special promos!</li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                        action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post" action="#">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                 placeholder="Enter your email here..." name="ec-email" value="" />
@@ -122,8 +123,9 @@
                     <!-- Footer Copyright Start -->
                     <div class="col text-center footer-copy">
                         <div class="footer-bottom-copy ">
-                            <div class="ec-copy">Copyright © <span id="copyright_year"></span> <a class="site-name text-upper"
-                                    href="#">ekka<span>.</span></a>. All Rights Reserved</div>
+                            <div class="ec-copy">Copyright © <span id="copyright_year"></span> <a
+                                    class="site-name text-upper" href="#">ekka<span>.</span></a>. All Rights Reserved
+                            </div>
                         </div>
                     </div>
                     <!-- Footer Copyright End -->
@@ -131,7 +133,7 @@
                     <div class="col footer-bottom-right">
                         <div class="footer-bottom-payment d-flex justify-content-end">
                             <div class="payment-link">
-                                <img src="assets/images/icons/payment.png" alt="">
+                                <img src="{{asset('frontend/assets/images/icons/payment.png')}}" alt="">
                             </div>
 
                         </div>

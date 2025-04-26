@@ -9,36 +9,36 @@
                         <!-- Swiper -->
                         <div class="qty-product-cover">
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_1.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_1.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_2.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_2.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_3.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_3.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_4.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_4.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_5.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_5.jpg')}}" alt="">
                             </div>
                         </div>
                         <div class="qty-nav-thumb">
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_1.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_1.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_2.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_2.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_3.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_3.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_4.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_4.jpg')}}" alt="">
                             </div>
                             <div class="qty-slide">
-                                <img class="img-responsive" src="assets/images/product-image/3_5.jpg" alt="">
+                                <img class="img-responsive" src="{{asset('frontend/assets/images/product-image/3_5.jpg')}}" alt="">
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
     <div id="ec-popnews-close"><i class="ecicon eci-close"></i></div>
     <div class="row">
         <div class="col-md-6 disp-no-767">
-            <img src="assets/images/banner/newsletter.png" alt="newsletter">
+            <img src="{{asset('frontend/assets/images/banner/newsletter.png')}}" alt="newsletter">
         </div>
         <div class="col-md-6">
             <div id="ec-popnews-box-content">
@@ -159,7 +159,7 @@
 
 <!-- Recent Purchase Popup  -->
 <div class="recent-purchase">
-    <img src="assets/images/product-image/1.jpg" alt="payment image">
+    <img src="{{asset('frontend/assets/images/product-image/1.jpg')}}" alt="payment image">
     <div class="detail">
         <p>Someone in new just bought</p>
         <h6>stylish baby shoes</h6>
@@ -198,7 +198,7 @@
                         <div class="d-flex bd-highlight">
                             <!-- Profile Picture -->
                             <div class="ec-img-cont">
-                                <img src="assets/images/whatsapp/profile_01.jpg" class="ec-user-img"
+                                <img src="{{asset('frontend/assets/images/whatsapp/profile_01.jpg')}}" class="ec-user-img"
                                     alt="Profile image">
                                 <span class="ec-status-icon"></span>
                             </div>
@@ -222,7 +222,7 @@
                         <div class="d-flex bd-highlight">
                             <!-- Profile Picture -->
                             <div class="ec-img-cont">
-                                <img src="assets/images/whatsapp/profile_02.jpg" class="ec-user-img"
+                                <img src="{{asset('frontend/assets/images/whatsapp/profile_02.jpg')}}" class="ec-user-img"
                                     alt="Profile image">
                                 <span class="ec-status-icon ec-online"></span>
                             </div>
@@ -246,7 +246,7 @@
                         <div class="d-flex bd-highlight">
                             <!-- Profile Picture -->
                             <div class="ec-img-cont">
-                                <img src="assets/images/whatsapp/profile_03.jpg" class="ec-user-img"
+                                <img src="{{asset('frontend/assets/images/whatsapp/profile_03.jpg')}}" class="ec-user-img"
                                     alt="Profile image">
                                 <span class="ec-status-icon ec-offline"></span>
                             </div>
@@ -270,7 +270,7 @@
                         <div class="d-flex bd-highlight">
                             <!-- Profile Picture -->
                             <div class="ec-img-cont">
-                                <img src="assets/images/whatsapp/profile_04.jpg" class="ec-user-img"
+                                <img src="{{asset('frontend/assets/images/whatsapp/profile_04.jpg')}}" class="ec-user-img"
                                     alt="Profile image">
                                 <span class="ec-status-icon ec-offline"></span>
                             </div>
@@ -295,7 +295,7 @@
     <div class="ec-right-bottom">
         <div class="ec-box">
             <div class="ec-button rotateBackward">
-                <img class="whatsapp" src="assets/images/common/whatsapp.png" alt="whatsapp icon">
+                <img class="whatsapp" src="{{asset('frontend/assets/images/common/whatsapp.png')}}" alt="whatsapp icon">
             </div>
         </div>
     </div>
@@ -310,7 +310,7 @@
         <h3>Features</h3>
     </div>
     <a href="#" class="ec-tools-sidebar-toggle in-out">
-        <img alt="icon" src="assets/images/common/settings.png">
+        <img alt="icon" src="{{asset('frontend/assets/images/common/settings.png')}}">
     </a>
     <div class="ec-tools-detail">
         <div class="ec-tools-sidebar-content ec-change-color ec-color-desc">

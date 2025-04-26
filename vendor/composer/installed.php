@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v12.0.7',
-        'version' => '12.0.7.0',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
         'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -386,8 +386,8 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v12.0.7',
-            'version' => '12.0.7.0',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
             'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
@@ -615,6 +615,24 @@
             'install_path' => __DIR__ . '/../phar-io/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'php-flasher/flasher' => array(
+            'pretty_version' => 'v2.1.6',
+            'version' => '2.1.6.0',
+            'reference' => '054a209515d2eb1bb72467023d8614a29b5d2e60',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-flasher/flasher',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-flasher/flasher-laravel' => array(
+            'pretty_version' => 'v2.1.6',
+            'version' => '2.1.6.0',
+            'reference' => '7097ab207d602db59b241206048c9884aadc5c06',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-flasher/flasher-laravel',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'phpoption/phpoption' => array(
             'pretty_version' => '1.9.3',

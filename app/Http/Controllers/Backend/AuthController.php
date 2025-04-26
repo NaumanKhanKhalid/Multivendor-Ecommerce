@@ -14,6 +14,6 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-
+dd(23213);
     }
 }

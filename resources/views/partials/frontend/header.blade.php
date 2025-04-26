@@ -103,9 +103,10 @@
                     <!-- Ec Header Logo Start -->
                     <div class="align-self-center">
                         <div class="header-logo">
-                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Site Logo" /><img
-                                    class="dark-logo" src="assets/images/logo/dark-logo.png" alt="Site Logo"
-                                    style="display: none;" /></a>
+                            <a href="{{ route('frontend.home') }}"><img
+                                    src="{{asset('frontend/assets/images/logo/logo.png')}}" alt="Site Logo" /><img
+                                    class="dark-logo" src="{{asset('frontend/assets/images/logo/dark-logo.png')}}"
+                                    alt="Site Logo" style="display: none;" /></a>
                         </div>
                     </div>
                     <!-- Ec Header Logo End -->
@@ -114,8 +115,7 @@
                     <div class="align-self-center">
                         <div class="header-search">
                             <form class="ec-btn-group-form" action="#">
-                                <input class="form-control ec-search-bar" placeholder="Search products..."
-                                    type="text">
+                                <input class="form-control ec-search-bar" placeholder="Search products..." type="text">
                                 <button class="submit" type="submit"><i class="fi-rr-search"></i></button>
                             </form>
                         </div>
@@ -130,11 +130,21 @@
                             <div class="ec-header-user dropdown">
                                 <button class="dropdown-toggle" data-bs-toggle="dropdown"><i
                                         class="fi-rr-user"></i></button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="register.html">Register</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
-                                    <li><a class="dropdown-item" href="login.html">Login</a></li>
-                                </ul>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+
+                                            @guest
+                                                <li><a class="dropdown-item" href="{{ route('frontend.register.form') }}">Register</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('frontend.login.form') }}">Login</a></li>
+                                            @endguest
+                                        
+                                            @auth
+                                                {{-- Optional: User dropdown or logout --}}
+                                                <li><a class="dropdown-item" href="">Dashboard</a></li>
+                                            @endauth
+                                        
+                                            <li><a class="dropdown-item" href="">Checkout</a></li>
+                                        </ul>
+                                        
                             </div>
                             <!-- Header User End -->
                             <!-- Header wishlist Start -->
@@ -164,9 +174,10 @@
                 <!-- Ec Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><img src="assets/images/logo/logo.png" alt="Site Logo" /><img
-                                class="dark-logo" src="assets/images/logo/dark-logo.png" alt="Site Logo"
-                                style="display: none;" /></a>
+                        <a href="{{ route('frontend.home') }}"><img
+                                src="{{asset('frontend/assets/images/logo/logo.png')}}" alt="Site Logo" /><img
+                                class="dark-logo" src="{{asset('frontend/assets/images/logo/dark-logo.png')}}"
+                                alt="Site Logo" style="display: none;" /></a>
                     </div>
                 </div>
                 <!-- Ec Header Logo End -->
@@ -194,7 +205,7 @@
                             <i class="fi fi-rr-apps"></i>
                         </a>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="{{ route('frontend.home') }}">Home</a></li>
                             <li class="dropdown position-static"><a href="javascript:void(0)">Categories</a>
                                 <ul class="mega-menu d-block">
                                     <li class="d-flex">
@@ -250,16 +261,20 @@
                                     <li>
                                         <ul class="ec-main-banner w-100">
                                             <li><a class="p-0" href="shop-left-sidebar-col-3.html"><img
-                                                        class="img-responsive" src="assets/images/menu-banner/1.jpg"
+                                                        class="img-responsive"
+                                                        src="{{asset('frontend/assets/images/menu-banner/1.jpg')}}"
                                                         alt=""></a></li>
                                             <li><a class="p-0" href="shop-left-sidebar-col-4.html"><img
-                                                        class="img-responsive" src="assets/images/menu-banner/2.jpg"
+                                                        class="img-responsive"
+                                                        src="{{asset('frontend/assets/images/menu-banner/2.jpg')}}"
                                                         alt=""></a></li>
                                             <li><a class="p-0" href="shop-right-sidebar-col-3.html"><img
-                                                        class="img-responsive" src="assets/images/menu-banner/3.jpg"
+                                                        class="img-responsive"
+                                                        src="{{asset('frontend/assets/images/menu-banner/3.jpg')}}"
                                                         alt=""></a></li>
                                             <li><a class="p-0" href="shop-right-sidebar-col-4.html"><img
-                                                        class="img-responsive" src="assets/images/menu-banner/4.jpg"
+                                                        class="img-responsive"
+                                                        src="{{asset('frontend/assets/images/menu-banner/4.jpg')}}"
                                                         alt=""></a></li>
                                         </ul>
                                     </li>
@@ -439,8 +454,8 @@
                                             Collection</a></li>
                                     <li><a href="javascript:void(0)" data-scroll="categories"
                                             class="nav-scroll">Categories</a></li>
-                                    <li><a href="javascript:void(0)" data-scroll="offers"
-                                            class="nav-scroll">Offers</a></li>
+                                    <li><a href="javascript:void(0)" data-scroll="offers" class="nav-scroll">Offers</a>
+                                    </li>
                                     <li><a href="javascript:void(0)" data-scroll="vendors" class="nav-scroll">Top
                                             Vendors</a></li>
                                     <li><a href="javascript:void(0)" data-scroll="services"
@@ -449,8 +464,8 @@
                                             Arrivals</a></li>
                                     <li><a href="javascript:void(0)" data-scroll="reviews" class="nav-scroll">Client
                                             Review</a></li>
-                                    <li><a href="javascript:void(0)" data-scroll="insta"
-                                            class="nav-scroll">Instagram Feed</a></li>
+                                    <li><a href="javascript:void(0)" data-scroll="insta" class="nav-scroll">Instagram
+                                            Feed</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -469,7 +484,7 @@
         <div class="ec-menu-inner">
             <div class="ec-menu-content">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ route('frontend.home') }}">Home</a></li>
                     <li><a href="javascript:void(0)">Categories</a>
                         <ul class="sub-menu">
                             <li>
@@ -517,7 +532,7 @@
                                 </ul>
                             </li>
                             <li><a class="p-0" href="shop-left-sidebar-col-3.html"><img class="img-responsive"
-                                        src="assets/images/menu-banner/1.jpg" alt=""></a>
+                                        src="{{asset('frontend/assets/images/menu-banner/1.jpg')}}" alt=""></a>
                             </li>
                         </ul>
                     </li>

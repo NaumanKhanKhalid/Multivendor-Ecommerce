@@ -11,9 +11,9 @@ class RoleUserTableSeeder extends Seeder
     public function run()
     {
         // Attach roles to users (if not already attached)
-        $admin = User::where('email', 'admin@example.com')->first();
-        $vendor = User::where('email', 'vendor@example.com')->first();
-        $customer = User::where('email', 'customer@example.com')->first();
+        $admin = User::where('email', 'admin@gmail.com')->first();
+        $vendor = User::where('email', 'vendor@gmail.com')->first();
+        $customer = User::where('email', 'customer@gmail.com')->first();
 
         $admin->roles()->attach(Role::where('slug', 'admin')->first());
         $vendor->roles()->attach(Role::where('slug', 'vendor')->first());
