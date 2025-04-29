@@ -22,4 +22,9 @@ class User extends Authenticatable
     {
         return $this->roles->contains('slug', $role);
     }
+
+    public function permissions()
+{
+    return $this->roles()->with('permissions');
+}
 }

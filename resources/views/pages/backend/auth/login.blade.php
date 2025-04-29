@@ -16,10 +16,11 @@
 
         <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 		<!-- Ekka CSS -->
-		<link id="ekka-css" rel="stylesheet" href="{{ asset('admin/assets/css/ekka.css')}}" />
+		<link id="ekka-css" rel="stylesheet" href="{{ asset('backend/assets/css/ekka.css')}}" />
 
 		<!-- FAVICON -->
-		<link href="{{ asset('admin/assets/img/favicon.png')}}" rel="shortcut icon" />
+		<link href="{{ asset('backend/assets/img/favicon.png')}}" rel="shortcut icon" />
+		@include('partials.combine.flash-messages')
 	</head>
 
 	<body class="sign-inup" id="body">
@@ -37,14 +38,15 @@
 						<div class="card-body p-5">
 							<h4 class="text-dark mb-5">Sign In</h4>
 
-							<form action="https://maraviyainfotech.com/index.html">
+							<form action="{{ route('backend.login') }}" method="POST">
+								@csrf
 								<div class="row">
 									<div class="form-group col-md-12 mb-4">
-										<input type="email" class="form-control" id="email" placeholder="Username">
+										<input type="email" class="form-control" name="email" id="email" placeholder="Username">
 									</div>
 
 									<div class="form-group col-md-12 ">
-										<input type="password" class="form-control" id="password" placeholder="Password">
+										<input type="password" class="form-control" name="password" id="password" placeholder="Password">
 									</div>
 
 									<div class="col-md-12">
@@ -74,13 +76,13 @@
 		</div>
 
 		<!-- Javascript -->
-		<script src="{{ asset('admin/assets/plugins/jquery/jquery-3.5.1.min.js')}}"></script>
-		<script src="{{ asset('admin/assets/js/bootstrap.bundle.min.js')}}"></script>
-		<script src="{{ asset('admin/assets/plugins/jquery-zoom/jquery.zoom.min.js')}}"></script>
-		<script src="{{ asset('admin/assets/plugins/slick/slick.min.js')}}"></script>
+		<script src="{{ asset('backend/assets/plugins/jquery/jquery-3.5.1.min.js')}}"></script>
+		<script src="{{ asset('backend/assets/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{ asset('backend/assets/plugins/jquery-zoom/jquery.zoom.min.js')}}"></script>
+		<script src="{{ asset('backend/assets/plugins/slick/slick.min.js')}}"></script>
 
 		<!-- Ekka Custom -->
-		<script src="{{ asset('admin/assets/js/ekka.js')}}"></script>
+		<script src="{{ asset('backend/assets/js/ekka.js')}}"></script>
 	</body>
 
 </html>

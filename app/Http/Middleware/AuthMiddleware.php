@@ -17,5 +17,6 @@ class AuthMiddleware
                 return redirect()->route('backend.login.form');
             }
         }
+        return $next($request);
     }
 }

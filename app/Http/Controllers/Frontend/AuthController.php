@@ -68,28 +68,40 @@ class AuthController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email|exists:users,email',
+                'email' => 'required|email',
                 'password' => 'required|min:8',
             ]);
-
+    
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
-
+    
             $credentials = $request->only('email', 'password');
-
+    
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->route('frontend.home');
+    
+                $user = Auth::user();
+                
+                $roles = $user->roles->pluck('slug')->toArray();
+    
+                if (in_array('customer', $roles)) {
+                    return redirect()->route('frontend.home');
+                }
+    
+                Auth::logout();
+                return back()->with('error', 'Unauthorized access.');
             }
-
+    
             return back()->with('error', 'Invalid email or password');
-
+    
         } catch (\Exception $e) {
-            $this->logError('Auth', 'Login', $e, $request->all());
+            $this->logError('Auth', 'CustomerLogin', $e, $request->all());
             return back()->with('error', 'Login failed. Please try again later.');
         }
     }
+    
+
 
     public function logout()
     {
