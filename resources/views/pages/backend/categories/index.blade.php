@@ -104,7 +104,8 @@
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
-                                                        <img class="image-thumb-preview ec-image-preview"
+                                                        <img id="addimagePreview"
+                                                            class="image-thumb-preview ec-image-preview"
                                                             src="{{ asset('backend/assets/img/products/vender-upload-preview.jpg') }}"
                                                             alt="edit" />
                                                     </div>
@@ -132,17 +133,6 @@
                                     <option value="Active" selected>Active</option>
                                     <option value="Inactive">Inactive</option>
                                 </select>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <label for="shortDescription" class="form-label">Short Description</label>
-                                <textarea class="form-control" id="shortDescription" name="short_description" rows="2"
-                                    placeholder="Enter short description..."></textarea>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="longDescription" class="form-label">Long Description</label>
-                                <textarea class="form-control" id="longDescription" name="long_description" rows="2"
-                                    placeholder="Enter full description..."></textarea>
                             </div>
 
                         </div>
@@ -209,16 +199,7 @@
                                     <option value="Inactive">Inactive</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-4">
-                                <label for="shortDescription" class="form-label">Short Description</label>
-                                <textarea class="form-control shortDescription" id="shortDescription"
-                                    name="short_description" rows="2"></textarea>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <label for="longDescription" class="form-label">Long Description</label>
-                                <textarea class="form-control longDescription" id="longDescription" name="long_description"
-                                    rows="2"></textarea>
-                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -257,6 +238,22 @@
         </div>
     </div>
 
+    <!-- VIEW IMAGE MODAL -->
+    <div class="modal fade" id="viewImageModal" tabindex="-1" aria-labelledby="viewImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Category Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalCategoryImage" src="" alt="Category Image" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @push('scripts')
         <script>
             $(document).ready(function () {
@@ -286,6 +283,15 @@
                 }
 
                 function renderPagination(data) {
+                    if (data.total === 0) {
+                        $('#Pagination').html(`
+                            <div class="dataTables_info" role="status" aria-live="polite">
+                                No entries found.
+                            </div>
+                        `);
+                        return;
+                    }
+
                     let paginationHtml = '';
                     $.each(data.links, function (index, link) {
                         const pageUrl = new URL(link.url || '', window.location.origin);
@@ -293,22 +299,22 @@
                         const label = link.label.includes('&') ? link.label : parseInt(link.label);
 
                         paginationHtml += `
-                                                    <li class="paginate_button page-item ${link.active ? 'active' : ''} ${!link.url ? 'disabled' : ''}">
-                                                        <a class="page-link" href="javascript:void(0);" data-page="${pageParam}">
-                                                            ${label}
-                                                        </a>
-                                                    </li>`;
+                            <li class="paginate_button page-item ${link.active ? 'active' : ''} ${!link.url ? 'disabled' : ''}">
+                                <a class="page-link" href="javascript:void(0);" data-page="${pageParam}">
+                                    ${label}
+                                </a>
+                            </li>`;
                     });
 
                     const pagination = `
-                                            <div class="dataTables_info" role="status" aria-live="polite">
-                                                Showing ${data.from} to ${data.to} of ${data.total} entries
-                                            </div>
-                                            <div class="dataTables_paginate paging_simple_numbers">
-                                                <ul class="pagination" id="paginationLinks">
-                                                    ${paginationHtml}
-                                                </ul>
-                                            </div>`;
+                        <div class="dataTables_info" role="status" aria-live="polite">
+                            Showing ${data.from} to ${data.to} of ${data.total} entries
+                        </div>
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            <ul class="pagination" id="paginationLinks">
+                                ${paginationHtml}
+                            </ul>
+                        </div>`;
 
                     $('#Pagination').html(pagination);
                 }
@@ -338,6 +344,8 @@
                             if (response.success) {
                                 $('#modal-add-category').modal('hide');
                                 $('#categoryForm')[0].reset();
+                                const imageSrc = 'assets/img/products/vender-upload-preview.jpg';
+                                $('#addimagePreview').attr('src', imageSrc);
 
                                 fetchCategories(1, currentPerPage);
 
@@ -370,26 +378,30 @@
                     }
 
                     return `
-                                    <tr>
-                                        <td><img src="/${category.category_image}" alt="Category Image" width="50" /></td>
-                                        <td>${category.name}</td>
-                                        <td>${category.subcategories?.length ?? 0}</td>
-                                        <td>${subcategoriesHtml}</td>
-                                        <td><span class="badge bg-${category.status === 'Active' ? 'success' : 'danger'}">${category.status}</span></td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-outline-primary edit-category-btn" data-id="${category.id}">
-                                                    Edit
-                                                </button>
-                                                <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
-                                                    <span class="sr-only">Edit</span>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item delete-category-btn"  data-id="${category.id}" href="javascript:;">Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>`;
+                                                    <tr>
+                                                         <td>
+                <a href="javascript:void(0);" class="view-image" data-image="/${category.category_image}">
+                    <img src="/${category.category_image}" alt="Category Image" width="50" />
+                </a>
+            </td>
+                                                        <td>${category.name}</td>
+                                                        <td> <span class="ec-sub-cat-count" title="Total Sub Categories">${category.subcategories?.length ?? 0}</span> ${subcategoriesHtml}</td>
+
+                                                        <td><span class="badge bg-${category.status === 'Active' ? 'success' : 'danger'}">${category.status}</span></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-outline-primary edit-category-btn" data-id="${category.id}">
+                                                                    Edit
+                                                                </button>
+                                                                <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                                    <span class="sr-only">Edit</span>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item delete-category-btn"  data-id="${category.id}" href="javascript:;">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>`;
                 }
 
                 $(document).on('click', '.edit-category-btn', function () {
@@ -407,8 +419,7 @@
                             $('.categoryName').val(category.name);
                             $('.slug').val(category.slug);
                             $('.status').val(category.status);
-                            $('.shortDescription').val(category.short_description);
-                            $('.longDescription').val(category.long_description);
+
                             console.log('Category Cover Image:', category.category_image);
 
                             const imageSrc = "/" + category.category_image || 'assets/img/products/vender-upload-preview.jpg';
@@ -482,7 +493,7 @@
                             if (response.success) {
                                 $('#modal-delete-category').modal('hide');
                                 flasher.success(response.message);
-                                fetchCategories(1, currentPerPage); // Reload category list
+                                fetchCategories(1, currentPerPage);
                             } else {
                                 flasher.error(response.message || 'Failed to delete category.');
                             }
@@ -498,6 +509,13 @@
                         }
                     });
                 });
+
+                $(document).on('click', '.view-image', function () {
+                    const imageUrl = $(this).data('image');
+                    $('#modalCategoryImage').attr('src', imageUrl);
+                    $('#viewImageModal').modal('show');
+                });
+
             });
 
         </script>

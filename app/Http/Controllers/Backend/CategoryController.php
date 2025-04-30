@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Illuminate\Http\Request;
+use Str;
 use Validator;
+use App\Models\Category;
 use App\Traits\LogsErrors;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -32,8 +33,6 @@ class CategoryController extends Controller
                 'slug' => 'nullable|string|max:255|unique:categories,slug',
                 'category_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'status' => 'required|in:Active,Inactive',
-                'short_description' => 'required|string',
-                'long_description' => 'required|string',
             ]);
 
             if ($validator->fails()) {
@@ -49,7 +48,7 @@ class CategoryController extends Controller
             }
 
             if (empty($data['slug'])) {
-                $data['slug'] = \Str::slug($data['name']);
+                $data['slug'] = Str::slug($data['name']);
             }
 
             $category = Category::create([
@@ -57,8 +56,6 @@ class CategoryController extends Controller
                 'slug' => $data['slug'],
                 'category_image' => $data['category_image'],
                 'status' => $data['status'],
-                'short_description' => $data['short_description'] ?? null,
-                'long_description' => $data['long_description'] ?? null,
             ]);
 
             $category->load('subcategories');
@@ -83,12 +80,11 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         return response()->json($category);
     }
-
     public function update(Request $request)
     {
         try {
 
-            
+
             $category = Category::findOrFail($request->category_id);
 
             $validator = Validator::make($request->all(), [
@@ -96,8 +92,6 @@ class CategoryController extends Controller
                 'slug' => 'nullable|string|max:255|unique:categories,slug,' . $category->id,
                 'category_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'status' => 'required|in:Active,Inactive',
-                'short_description' => 'required|string',
-                'long_description' => 'required|string',
             ]);
 
             if ($validator->fails()) {
@@ -117,7 +111,20 @@ class CategoryController extends Controller
             }
 
             if (empty($data['slug'])) {
-                $data['slug'] = \Str::slug($data['name']);
+                $data['slug'] = Str::slug($data['name']);
+            }
+
+            if ($data['slug'] !== $category->slug) {
+                $exists = $category->slugHistories()
+                    ->where('old_slug', $category->slug)
+                    ->exists();
+
+                if (!$exists) {
+                    $category->slugHistories()->create([
+                        'old_slug' => $category->slug,
+                        'changed_by' => auth()->id(),
+                    ]);
+                }
             }
 
             $category->update([
@@ -125,8 +132,6 @@ class CategoryController extends Controller
                 'slug' => $data['slug'],
                 'category_image' => $data['category_image'] ?? $category->category_image,
                 'status' => $data['status'],
-                'short_description' => $data['short_description'] ?? $category->short_description,
-                'long_description' => $data['long_description'] ?? $category->long_description,
             ]);
 
             $category->load('subcategories');
@@ -146,7 +151,6 @@ class CategoryController extends Controller
             ], 500);
         }
     }
-
     public function destroy($id)
     {
         try {
