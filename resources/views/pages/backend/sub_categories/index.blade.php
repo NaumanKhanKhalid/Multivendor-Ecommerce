@@ -1,5 +1,5 @@
 @extends('layouts.backend-layout')
-@section('title', "Categories")
+@section('title', "Sub Categories")
 @section('content')
 
 
@@ -7,14 +7,14 @@
         <div class="content">
             <div class="breadcrumb-wrapper breadcrumb-contacts">
                 <div>
-                    <h1>Main Category</h1>
+                    <h1>Sub Category</h1>
                     <p class="breadcrumbs"><span><a href="{{ route('backend.dashboard') }}">Home</a></span>
-                        <span><i class="mdi mdi-chevron-right"></i></span>Main Category
+                        <span><i class="mdi mdi-chevron-right"></i></span>Sub Category
                     </p>
                 </div>
                 <div>
                     <button type="button" class="btn btn-primary modal-add-category-btn" data-bs-toggle="modal"
-                        data-bs-target="#modal-add-category">Add New
+                        data-bs-target="#modal-add-sub-category">Add New
                     </button>
                 </div>
             </div>
@@ -52,13 +52,13 @@
                                             <tr>
                                                 <th>Thumb</th>
                                                 <th>Name</th>
-                                                <th>Sub Categories</th>
+                                                <th>Category</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
 
-                                        <tbody id="categoryTableBody">
+                                        <tbody id="subcategoryTableBody">
 
                                         </tbody>
                                     </table>
@@ -75,15 +75,16 @@
             </div>
         </div>
     </div>
-    <!-- ADD CATEGORY MODAL -->
-    <div class="modal fade" id="modal-add-category" tabindex="-1" aria-labelledby="addCategoryLabel" aria-hidden="true">
+    <!-- ADD SUB CATEGORY MODAL -->
+    <div class="modal fade" id="modal-add-sub-category" tabindex="-1" aria-labelledby="addSubCategoryLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <form id="categoryForm" method="POST" action="" enctype="multipart/form-data">
+                <form id="SubCategoryForm" method="POST" action="" enctype="multipart/form-data">
                     @csrf
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addCategoryLabel">Add New Category</h5>
+                        <h5 class="modal-title" id="addSubCategoryLabel">Add New Sub Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -97,7 +98,7 @@
                                         <div class="thumb-upload-set colo-md-12">
                                             <div class="thumb-upload">
                                                 <div class="thumb-edit">
-                                                    <input type='file' id="thumbUpload01" name="category_image"
+                                                    <input type='file' id="thumbUpload01" name="subcategory_image"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
                                                     <label for="imageUpload"><img src="assets/img/icons/edit.svg"
                                                             class="svg_img header_svg" alt="edit" /></label>
@@ -115,10 +116,21 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-md-6 mb-4">
-                                <label for="categoryName" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" id="categoryName" name="name"
-                                    placeholder="Enter Category Name">
+                                <label for="category_id" class="form-label">Select Main Categroy</label>
+
+
+                                <select name="category_id" id="category_id" class="form-control">
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label for="subCategoryName" class="form-label">Sub Category Name</label>
+                                <input type="text" class="form-control" id="subCategoryName" name="name"
+                                    placeholder="Enter SubCategory Name">
                             </div>
 
                             <div class="col-md-6 mb-4">
@@ -148,18 +160,19 @@
     </div>
 
     <!-- EDIT CATEGORY MODAL -->
-    <div class="modal fade" id="modal-edit-category" tabindex="-1" aria-labelledby="editCategoryLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-edit-sub-category" tabindex="-1" aria-labelledby="editSubCategoryLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <form id="editCategoryForm" method="POST" enctype="multipart/form-data">
+                <form id="editSubCategoryForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editCategoryLabel">Edit Category</h5>
+                        <h5 class="modal-title" id="editSubCategoryLabel">Edit Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" class="categoryId" id="categoryId" name="category_id">
+                        <input type="hidden" class="subCategoryId" id="subCategoryId" name="sub_category_id">
                         <div class="row">
                             <div class="d-flex justify-content-center mb-4 ec-vendor-uploads">
                                 <div class="ec-vendor-img-upload">
@@ -167,7 +180,7 @@
                                         <div class="thumb-upload-set colo-md-12">
                                             <div class="thumb-upload">
                                                 <div class="thumb-edit">
-                                                    <input type='file' id="thumbUpload01" name="category_image"
+                                                    <input type='file' id="thumbUpload01" name="subcategory_image"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
                                                     <label for="imageUpload"><img src="assets/img/icons/edit.svg"
                                                             class="svg_img header_svg" alt="edit" /></label>
@@ -183,10 +196,21 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="col-md-6 mb-4">
-                                <label for="categoryName" class="form-label">Category Name</label>
-                                <input type="text" class="form-control categoryName" id="categoryName" name="name">
+                                <label for="edit_category_id" class="form-label">Select Main Category</label>
+                                <select name="category_id" id="edit_category_id" class="form-control">
+                                    <!-- Categories will be populated here -->
+                                </select>
                             </div>
+                            
+
+                            <div class="col-md-6 mb-4">
+                                <label for="subCategoryName" class="form-label">Sub Category Name</label>
+                                <input type="text" class="form-control subCategoryName" id="subCategoryName" name="name">
+                            </div>
+
                             <div class="col-md-6 mb-4">
                                 <label for="slug" class="form-label">Slug</label>
                                 <input type="text" class="form-control" id="slug" name="slug">
@@ -204,7 +228,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Category</button>
+                        <button type="submit" class="btn btn-primary">Update Sub Category</button>
                     </div>
                 </form>
             </div>
@@ -212,26 +236,25 @@
     </div>
 
     <!-- DELETE CATEGORY MODAL -->
-    <div class="modal fade" id="modal-delete-category" tabindex="-1" aria-labelledby="deleteCategoryLabel"
+    <div class="modal fade" id="modal-delete-sub-category" tabindex="-1" aria-labelledby="deleteSubCategoryLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form id="deleteCategoryForm" method="POST">
+                <form id="deleteSubCategoryForm" method="POST">
                     @csrf
                     @method('DELETE')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteCategoryLabel">Delete Category</h5>
+                        <h5 class="modal-title" id="deleteSubCategoryLabel">Delete Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Are you sure you want to delete this category?</p>
-                        <input type="hidden" id="categoryIdToDelete" name="category_id">
-                        <!-- Hidden field for category ID -->
+                        <input type="hidden" id="subCategoryIdToDelete" name="category_id">
                         <p class="text-danger">This action cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Delete Category</button>
+                        <button type="submit" class="btn btn-danger">Delete Sub Category</button>
                     </div>
                 </form>
             </div>
@@ -243,11 +266,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Category Image</h5>
+                    <h5 class="modal-title">Sub Category Image</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img id="modalCategoryImage" src="" alt="Category Image" class="img-fluid" />
+                    <img id="modalSubCategoryImage" src="" alt="Category Image" class="img-fluid" />
                 </div>
             </div>
         </div>
@@ -266,18 +289,25 @@
 
                 let currentPerPage = 10;
 
-                function fetchCategories(page = 1, perPage = 10) {
+                function fetchSubCategories(page = 1, perPage = 10) {
                     $.ajax({
-                        url: "{{ route('categories.index') }}?page=" + page + "&per_page=" + perPage,
+                        url: "{{ route('sub.categories.index') }}?page=" + page + "&per_page=" + perPage,
                         type: "GET",
                         dataType: "json",
                         success: function (data) {
-                            let html = '';
-                            $.each(data.data, function (index, category) {
-                                html += addCategoryRow(category);
+
+                            let categoryOptions = '';
+                            $.each(data.categories, function (index, category) {
+                                categoryOptions += `<option value="${category.id}">${category.name}</option>`;
                             });
-                            $('#categoryTableBody').html(html);
-                            renderPagination(data);
+                            $('#category_id').html(categoryOptions); // Populate dropdown
+
+                            let html = '';
+                            $.each(data.subCategories.data, function (index, sub_category) {
+                                html += addSubCategoryRow(sub_category);
+                            });
+                            $('#subcategoryTableBody').html(html);
+                            renderPagination(data.subCategories);
                         }
                     });
                 }
@@ -285,10 +315,10 @@
                 function renderPagination(data) {
                     if (data.total === 0) {
                         $('#Pagination').html(`
-                            <div class="dataTables_info" role="status" aria-live="polite">
-                                No entries found.
-                            </div>
-                        `);
+                                            <div class="dataTables_info" role="status" aria-live="polite">
+                                                No entries found.
+                                            </div>
+                                        `);
                         return;
                     }
 
@@ -299,55 +329,55 @@
                         const label = link.label.includes('&') ? link.label : parseInt(link.label);
 
                         paginationHtml += `
-                            <li class="paginate_button page-item ${link.active ? 'active' : ''} ${!link.url ? 'disabled' : ''}">
-                                <a class="page-link" href="javascript:void(0);" data-page="${pageParam}">
-                                    ${label}
-                                </a>
-                            </li>`;
+                                            <li class="paginate_button page-item ${link.active ? 'active' : ''} ${!link.url ? 'disabled' : ''}">
+                                                <a class="page-link" href="javascript:void(0);" data-page="${pageParam}">
+                                                    ${label}
+                                                </a>
+                                            </li>`;
                     });
 
                     const pagination = `
-                        <div class="dataTables_info" role="status" aria-live="polite">
-                            Showing ${data.from} to ${data.to} of ${data.total} entries
-                        </div>
-                        <div class="dataTables_paginate paging_simple_numbers">
-                            <ul class="pagination" id="paginationLinks">
-                                ${paginationHtml}
-                            </ul>
-                        </div>`;
+                                        <div class="dataTables_info" role="status" aria-live="polite">
+                                            Showing ${data.from} to ${data.to} of ${data.total} entries
+                                        </div>
+                                        <div class="dataTables_paginate paging_simple_numbers">
+                                            <ul class="pagination" id="paginationLinks">
+                                                ${paginationHtml}
+                                            </ul>
+                                        </div>`;
 
                     $('#Pagination').html(pagination);
                 }
 
                 $(document).on('click', '.page-link', function () {
                     const page = $(this).data('page');
-                    if (page) fetchCategories(page, currentPerPage);
+                    if (page) fetchSubCategories(page, currentPerPage);
                 });
 
                 $('#entriesPerPage').on('change', function () {
                     currentPerPage = $(this).val();
-                    fetchCategories(1, currentPerPage);
+                    fetchSubCategories(1, currentPerPage);
                 });
 
-                $('#categoryForm').on('submit', function (e) {
+                $('#SubCategoryForm').on('submit', function (e) {
                     e.preventDefault();
 
                     let formData = new FormData(this);
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('categories.store') }}",
+                        url: "{{ route('sub.categories.store') }}",
                         data: formData,
                         contentType: false,
                         processData: false,
                         success: function (response) {
                             if (response.success) {
-                                $('#modal-add-category').modal('hide');
-                                $('#categoryForm')[0].reset();
+                                $('#modal-add-sub-category').modal('hide');
+                                $('#SubCategoryForm')[0].reset();
                                 const imageSrc = 'assets/img/products/vender-upload-preview.jpg';
                                 $('#addimagePreview').attr('src', imageSrc);
 
-                                fetchCategories(1, currentPerPage);
+                                fetchSubCategories(1, currentPerPage);
 
                                 flasher.success(response.message);
                             } else {
@@ -367,67 +397,69 @@
                     });
                 });
 
-                fetchCategories(1, currentPerPage);
+                fetchSubCategories(1, currentPerPage);
 
-                function addCategoryRow(category) {
-                    let subcategoriesHtml = '';
-                    if (category.subcategories && category.subcategories.length > 0) {
-                        category.subcategories.forEach(function (sub) {
-                            subcategoriesHtml += `<span class="ec-sub-cat-tag me-1">${sub.name}</span>`;
-                        });
-                    }
+                function addSubCategoryRow(subcategory) {
 
                     return `
-                                                    <tr>
-                                                         <td>
-                <a href="javascript:void(0);" class="view-image" data-image="/${category.category_image}">
-                    <img src="/${category.category_image}" alt="Category Image" width="50" />
-                </a>
-            </td>
-                                                        <td>${category.name}</td>
-                                                        <td> <span class="ec-sub-cat-count" title="Total Sub Categories">${category.subcategories?.length ?? 0}</span> ${subcategoriesHtml}</td>
+                                                                    <tr>
+                                                                         <td>
+                                <a href="javascript:void(0);" class="view-image" data-image="/${subcategory.subcategory_image}">
+                                    <img src="/${subcategory.subcategory_image}" alt="Category Image" width="50" />
+                                </a>
+                            </td>
+                                                                        <td>${subcategory.name}</td>
+                                                                        <td> ${subcategory.category.name}</td>
 
-                                                        <td><span class="badge bg-${category.status === 'Active' ? 'success' : 'danger'}">${category.status}</span></td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-outline-primary edit-category-btn" data-id="${category.id}">
-                                                                    Edit
-                                                                </button>
-                                                                <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
-                                                                    <span class="sr-only">Edit</span>
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item delete-category-btn"  data-id="${category.id}" href="javascript:;">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>`;
+                                                                        <td><span class="badge bg-${subcategory.status === 'Active' ? 'success' : 'danger'}">${subcategory.status}</span></td>
+                                                                        <td>
+                                                                            <div class="btn-group">
+                                                                                <button type="button" class="btn btn-outline-primary edit-sub-category-btn" data-id="${subcategory.id}">
+                                                                                    Edit
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                                                    <span class="sr-only">Edit</span>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item delete-sub-category-btn"  data-id="${subcategory.id}" href="javascript:;">Delete</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>`;
                 }
 
-                $(document).on('click', '.edit-category-btn', function () {
+                $(document).on('click', '.edit-sub-category-btn', function () {
+                    const subCategoryId = $(this).data('id');
+                    const fetchUrl = "{{ route('sub.categories.edit', ['id' => ':id']) }}".replace(':id', subCategoryId);
 
-                    const categoryId = $(this).data('id');
-                    const fetchUrl = "{{ route('categories.edit', ['id' => ':id']) }}".replace(':id', categoryId);
-
-
-
+                    // Make the AJAX request to fetch subcategory data and categories
                     $.ajax({
                         url: fetchUrl,
                         type: 'GET',
-                        success: function (category) {
-                            $('.categoryId').val(category.id);
-                            $('.categoryName').val(category.name);
-                            $('.slug').val(category.slug);
-                            $('.status').val(category.status);
+                        success: function (response) {
+                            const subcategory = response.sub_category;
+                            const categories = response.categories;
 
-                            console.log('Category Cover Image:', category.category_image);
+                            // Populate the form fields with the retrieved subcategory data
+                            $('.subCategoryId').val(subcategory.id);
+                            $('.subCategoryName').val(subcategory.name);
+                            $('.slug').val(subcategory.slug);
+                            $('.status').val(subcategory.status);
 
-                            const imageSrc = "/" + category.category_image || 'assets/img/products/vender-upload-preview.jpg';
+                            // Set the image preview
+                            const imageSrc = subcategory.subcategory_image ? '/' + subcategory.subcategory_image : 'assets/img/products/vender-upload-preview.jpg';
                             $('#imagePreview').attr('src', imageSrc);
 
+                            // Populate the category dropdown and set the current category as selected
+                            let categoryOptions = '';
+                            $.each(categories, function (index, category) {
+                                const selected = category.id === subcategory.category_id ? 'selected' : ''; // Preselect current category
+                                categoryOptions += `<option value="${category.id}" ${selected}>${category.name}</option>`;
+                            });
+                            $('#edit_category_id').html(categoryOptions); // Populate category dropdown
 
-
-                            $('#modal-edit-category').modal('show');
+                            // Show the modal
+                            $('#modal-edit-sub-category').modal('show');
                         },
                         error: function () {
                             flasher.error('Failed to load category data.');
@@ -435,23 +467,22 @@
                     });
                 });
 
-                $('#editCategoryForm').on('submit', function (e) {
+                $('#editSubCategoryForm').on('submit', function (e) {
                     e.preventDefault();
 
                     const formData = new FormData(this);
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('categories.update') }}",
+                        url: "{{ route('sub.categories.update') }}",
                         data: formData,
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            console.log(response);
                             if (response.success) {
 
-                                fetchCategories(1, currentPerPage);
-                                $('#modal-edit-category').modal('hide');
+                                fetchSubCategories(1, currentPerPage);
+                                $('#modal-edit-sub-category').modal('hide');
                                 flasher.success(response.message);
                             } else {
                                 flasher.error(response.message);
@@ -469,18 +500,18 @@
                     });
                 });
 
-                $(document).on('click', '.delete-category-btn', function () {
-                    const categoryId = $(this).data('id');
+                $(document).on('click', '.delete-sub-category-btn', function () {
+                    const subCategoryId = $(this).data('id');
 
-                    $('#categoryIdToDelete').val(categoryId);
-                    $('#modal-delete-category').modal('show');
+                    $('#subCategoryIdToDelete').val(subCategoryId);
+                    $('#modal-delete-sub-category').modal('show');
                 });
 
                 $('#deleteCategoryForm').on('submit', function (e) {
                     e.preventDefault();
 
-                    const categoryId = $('#categoryIdToDelete').val();
-                    const fetchUrl = "{{ route('categories.destroy', ':id') }}".replace(':id', categoryId);
+                    const subCategoryId = $('#subCategoryIdToDelete').val();
+                    const fetchUrl = "{{ route('sub.categories.destroy', ':id') }}".replace(':id', subCategoryId);
 
                     $.ajax({
                         url: fetchUrl,
@@ -491,9 +522,9 @@
                         },
                         success: function (response) {
                             if (response.success) {
-                                $('#modal-delete-category').modal('hide');
+                                $('#modal-delete-sub-category').modal('hide');
                                 flasher.success(response.message);
-                                fetchCategories(1, currentPerPage);
+                                fetchSubCategories(1, currentPerPage);
                             } else {
                                 flasher.error(response.message || 'Failed to delete category.');
                             }
@@ -512,7 +543,7 @@
 
                 $(document).on('click', '.view-image', function () {
                     const imageUrl = $(this).data('image');
-                    $('#modalCategoryImage').attr('src', imageUrl);
+                    $('#modalSubCategoryImage').attr('src', imageUrl);
                     $('#viewImageModal').modal('show');
                 });
 

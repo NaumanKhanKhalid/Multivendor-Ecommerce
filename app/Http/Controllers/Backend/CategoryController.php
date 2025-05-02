@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $perPage = $request->get('per_page', 10); // Default is now 10
+            $perPage = $request->get('per_page', 10);
             $categories = Category::with('subcategories')->paginate($perPage);
             return response()->json($categories);
         }

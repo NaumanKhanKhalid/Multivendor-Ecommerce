@@ -1,7 +1,8 @@
 <?php
+use App\Http\Controllers\Backend\CategoryController as BackendCategoryController;
+use App\Http\Controllers\Backend\SubCategoryController as BackendSubCategoryController;
 use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\AuthController as BackendAuthController;
-use App\Http\Controllers\Backend\CategoryController;
 
 
 
@@ -9,14 +10,34 @@ Route::prefix('backend/')->middleware(['auth.check:backend'])->group(function ()
     Route::get('dashboard', [BackendDashboardController::class, 'index'])->name('backend.dashboard');
     Route::post('logout', [BackendAuthController::class, 'logout'])->name('backend.logout');
 
-    Route::prefix('category/')->group(function () {
-        Route::get('', [CategoryController::class, 'index'])->name('categories.index');
-        Route::post('store', [CategoryController::class, 'store'])->name('category.store');
-        Route::get('{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-        Route::put('update', [CategoryController::class, 'update'])->name('category.update');
-        Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
+    // ========== Main Category Module Routes Start ==========
+
+    Route::prefix('main-category/')->group(function () {
+        Route::get('categories', [BackendCategoryController::class, 'index'])->name('categories.index');
+        Route::post('store', [BackendCategoryController::class, 'store'])->name('categories.store');
+        Route::get('{id}/edit', [BackendCategoryController::class, 'edit'])->name('categories.edit');
+        Route::put('update', [BackendCategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/{id}', [BackendCategoryController::class, 'destroy'])->name('categories.destroy');
     });
+
+    // ========== Main Category Module Routes End ==========
+
+
+    // ========== Sub Category Module Routes Start ==========
+
+    Route::prefix('sub-category/')->group(function () {
+        Route::get('sub-categories', [BackendSubCategoryController::class, 'index'])->name('sub.categories.index');
+        Route::post('store', [BackendSubCategoryController::class, 'store'])->name('sub.categories.store');
+        Route::get('{id}/edit', [BackendSubCategoryController::class, 'edit'])->name('sub.categories.edit');
+        Route::put('update', [BackendSubCategoryController::class, 'update'])->name('sub.categories.update');
+        Route::delete('/{id}', [BackendSubCategoryController::class, 'destroy'])->name('sub.categories.destroy');
+    });
+
+    // ========== Sub Category Module Routes End ==========
+
+
+
 });
 
 // Backend Routes
@@ -24,10 +45,7 @@ Route::prefix('backend/')->group(function () {
     Route::get('login', [BackendAuthController::class, 'showLoginForm'])->name('backend.login.form');
     Route::post('login', [BackendAuthController::class, 'login'])->name('backend.login');
 
-    // ========== Category Module Routes Start ==========
 
-
-    // ========== Category Module Routes End ==========
 
 
 
