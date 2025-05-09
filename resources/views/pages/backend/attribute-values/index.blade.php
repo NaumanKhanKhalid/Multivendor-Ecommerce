@@ -81,12 +81,6 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="value" class="form-label">Value</label>
-                                <input type="text" class="form-control" id="value" name="value"
-                                    placeholder="Enter Attribute Value">
-                            </div>
-
-                            <div class="col-md-6 mb-4">
                                 <label for="attribute_id" class="form-label">Select Attribute</label>
                                 <select name="attribute_id" id="attribute_id" class="form-control">
                                     @foreach($attributes as $attribute)
@@ -94,6 +88,12 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="value" class="form-label">Value</label>
+                                <input type="text" class="form-control" id="value" name="value"
+                                    placeholder="Enter Attribute Value">
+                            </div>
+
 
                             <div class="col-md-6 mb-4">
                                 <label for="status" class="form-label">Select Status</label>
@@ -130,11 +130,6 @@
                         <input type="hidden" id="editAttributeValueId" name="attribute_value_id">
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label for="editValue" class="form-label">Value</label>
-                                <input type="text" class="form-control" id="editValue" name="value">
-                            </div>
-
-                            <div class="col-md-6 mb-4">
                                 <label for="editAttribute_id" class="form-label">Select Attribute</label>
                                 <select name="attribute_id" id="editAttribute_id" class="form-control">
                                     @foreach($attributes as $attribute)
@@ -142,6 +137,11 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="editValue" class="form-label">Value</label>
+                                <input type="text" class="form-control" id="editValue" name="value">
+                            </div>
+
 
                             <div class="col-md-6 mb-4">
                                 <label for="editStatus" class="form-label">Select Status</label>
@@ -211,16 +211,27 @@
 
                             data.attributeValues.data.forEach(attributeValue => {
                                 attributeValueTableBody.append(`
-                                                                                                                                                                                                                                                        <tr>
-                                                                                                                                                                                                                                                            <td>${attributeValue.attribute.name}</td>
-                                                                                                                                                                                                                                                            <td>${attributeValue.value}</td>
-                                                                                                                                                                                                                                                            <td>${attributeValue.status}</td>
-                                                                                                                                                                                                                                                            <td>
-                                                                                                                                                                                                                                                                <button class="btn btn-sm btn-warning edit-attribute-value-btn" data-id="${attributeValue.id}">Edit</button>
-                                                                                                                                                                                                                                                                <button class="btn btn-sm btn-danger delete-attribute-value-btn" data-id="${attributeValue.id}">Delete</button>
-                                                                                                                                                                                                                                                            </td>
-                                                                                                                                                                                                                                                        </tr>
-                                                                                                                                                                                                                                                        `);
+                                            <tr>
+                                                <td>${attributeValue.attribute.name}</td>
+                                                <td>${attributeValue.value}</td>
+                                                <td>${attributeValue.status}</td>
+                                                <td>
+
+                                                    <div class="btn-group">
+                                                            <button type="button" class="btn btn-outline-primary  edit-attribute-value-btn" data-id="${attributeValue.id}">
+                                                                Edit
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                                <span class="sr-only">Edit</span>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item delete-attribute-value-btn" data-id="${attributeValue.id}" href="javascript:;">Delete</a>
+                                                            </div>
+                                                        </div>
+
+                                                </td>
+                                            </tr>
+                                            `);
                             });
 
                             const pagination = $('#Pagination');
@@ -228,14 +239,14 @@
 
                             if (data.attributeValues.current_page > 1) {
                                 pagination.append(`
-                                                                                                                                                                                                                                                            <button class="btn btn-sm btn-primary" onclick="fetchAttributeValues(${data.attributeValues.current_page - 1}, ${currentPerPage})">Previous</button>
-                                                                                                                                                                                                                                                        `);
+                                                                                                                                                                                                                                                                                    <button class="btn btn-sm btn-primary" onclick="fetchAttributeValues(${data.attributeValues.current_page - 1}, ${currentPerPage})">Previous</button>
+                                                                                                                                                                                                                                                                                `);
                             }
 
                             if (data.attributeValues.current_page < data.attributeValues.last_page) {
                                 pagination.append(`
-                                                                                                                                                                                                                                                            <button class="btn btn-sm btn-primary" onclick="fetchAttributeValues(${data.attributeValues.current_page + 1}, ${currentPerPage})">Next</button>
-                                                                                                                                                                                                                                                        `);
+                                                                                                                                                                                                                                                                                    <button class="btn btn-sm btn-primary" onclick="fetchAttributeValues(${data.attributeValues.current_page + 1}, ${currentPerPage})">Next</button>
+                                                                                                                                                                                                                                                                                `);
                             }
                         }
                     });
@@ -275,11 +286,7 @@
 
                     let formData = $(this).serialize();
                     let attributeValueId = $('#editAttributeValueId').val();
-
-
-
                     const fetchUrl = "{{ route('backend.attribute-values.update', ['id' => ':id']) }}".replace(':id', attributeValueId);
-
 
                     $.ajax({
                         url: fetchUrl,
@@ -289,9 +296,9 @@
                             if (response.success) {
                                 $('#modal-edit-attribute-value').modal('hide');
                                 fetchAttributeValues();
-                                 flasher.success(response.message);
-                            }else{
-                                 flasher.error(response.message);
+                                flasher.success(response.message);
+                            } else {
+                                flasher.error(response.message);
                             }
                         }
                     });
@@ -337,10 +344,6 @@
                     e.preventDefault();
 
                     let formData = $(this).serialize();
-
-
-
-
                     $.ajax({
                         url: "{{ route('backend.attribute-values.store') }}",
                         type: 'POST',

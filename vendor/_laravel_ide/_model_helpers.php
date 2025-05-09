@@ -323,7 +323,7 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string $slug
+     * @property mixed $status
      * @property string $value
      * @property mixed $attribute_id
      * @property int $id
@@ -331,7 +331,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereAttributeId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereValue($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereSlug($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<AttributeValue>|AttributeValue newModelQuery()
