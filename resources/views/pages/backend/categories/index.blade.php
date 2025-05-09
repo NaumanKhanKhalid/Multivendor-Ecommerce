@@ -268,7 +268,7 @@
 
                 function fetchCategories(page = 1, perPage = 10) {
                     $.ajax({
-                        url: "{{ route('categories.index') }}?page=" + page + "&per_page=" + perPage,
+                        url: "{{ route('backend.categories.index') }}?page=" + page + "&per_page=" + perPage,
                         type: "GET",
                         dataType: "json",
                         success: function (data) {
@@ -336,7 +336,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('categories.store') }}",
+                        url: "{{ route('backend.categories.store') }}",
                         data: formData,
                         contentType: false,
                         processData: false,
@@ -407,7 +407,7 @@
                 $(document).on('click', '.edit-category-btn', function () {
 
                     const categoryId = $(this).data('id');
-                    const fetchUrl = "{{ route('categories.edit', ['id' => ':id']) }}".replace(':id', categoryId);
+                    const fetchUrl = "{{ route('backend.categories.edit', ['id' => ':id']) }}".replace(':id', categoryId);
 
 
 
@@ -442,7 +442,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('categories.update') }}",
+                        url: "{{ route('backend.categories.update') }}",
                         data: formData,
                         contentType: false,
                         processData: false,
@@ -480,7 +480,7 @@
                     e.preventDefault();
 
                     const categoryId = $('#categoryIdToDelete').val();
-                    const fetchUrl = "{{ route('categories.destroy', ':id') }}".replace(':id', categoryId);
+                    const fetchUrl = "{{ route('backend.categories.destroy', ':id') }}".replace(':id', categoryId);
 
                     $.ajax({
                         url: fetchUrl,

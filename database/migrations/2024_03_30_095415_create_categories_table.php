@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('long_description')->nullable();
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index('name');
             $table->index('slug');

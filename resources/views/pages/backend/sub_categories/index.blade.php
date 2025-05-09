@@ -291,7 +291,7 @@
 
                 function fetchSubCategories(page = 1, perPage = 10) {
                     $.ajax({
-                        url: "{{ route('sub.categories.index') }}?page=" + page + "&per_page=" + perPage,
+                        url: "{{ route('backend.subcategories.index') }}?page=" + page + "&per_page=" + perPage,
                         type: "GET",
                         dataType: "json",
                         success: function (data) {
@@ -366,7 +366,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('sub.categories.store') }}",
+                        url: "{{ route('backend.subcategories.store') }}",
                         data: formData,
                         contentType: false,
                         processData: false,
@@ -430,9 +430,8 @@
 
                 $(document).on('click', '.edit-sub-category-btn', function () {
                     const subCategoryId = $(this).data('id');
-                    const fetchUrl = "{{ route('sub.categories.edit', ['id' => ':id']) }}".replace(':id', subCategoryId);
+                    const fetchUrl = "{{ route('backend.subcategories.edit', ['id' => ':id']) }}".replace(':id', subCategoryId);
 
-                    // Make the AJAX request to fetch subcategory data and categories
                     $.ajax({
                         url: fetchUrl,
                         type: 'GET',
@@ -474,7 +473,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('sub.categories.update') }}",
+                        url: "{{ route('backend.subcategories.update') }}",
                         data: formData,
                         contentType: false,
                         processData: false,
@@ -511,7 +510,7 @@
                     e.preventDefault();
 
                     const subCategoryId = $('#subCategoryIdToDelete').val();
-                    const fetchUrl = "{{ route('sub.categories.destroy', ':id') }}".replace(':id', subCategoryId);
+                    const fetchUrl = "{{ route('backend.subcategories.destroy', ':id') }}".replace(':id', subCategoryId);
 
                     $.ajax({
                         url: fetchUrl,

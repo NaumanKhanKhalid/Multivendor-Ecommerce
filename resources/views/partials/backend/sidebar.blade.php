@@ -87,12 +87,12 @@
                     <div class="collapse">
                         <ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
                             <li class="">
-                                <a class="sidenav-item-link" href="{{ route('categories.index') }}">
+                                <a class="sidenav-item-link" href="{{ route('backend.categories.index') }}">
                                     <span class="nav-text">Main Category</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a class="sidenav-item-link" href="sub-category.html">
+                                <a class="sidenav-item-link" href="{{ route('backend.subcategories.index') }}">
                                     <span class="nav-text">Sub Category</span>
                                 </a>
                             </li>

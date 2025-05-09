@@ -17,6 +17,14 @@ class DatabaseSeeder extends Seeder
             RoleUserTableSeeder::class,
             CategorySeeder::class,
             SubCategorySeeder::class,
+
+            AttributeSeeder::class,
+            AttributeValueSeeder::class,
+            ProductSeeder::class,
+            ProductAttributeSeeder::class,
+            ProductVariationSeeder::class,
+            ProductVariationAttributeSeeder::class,
         ]);
     }
+
 }
