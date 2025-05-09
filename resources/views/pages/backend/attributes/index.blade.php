@@ -409,7 +409,6 @@
 
                             $('#editAttributeId').val(data.id);
                             $('#editAttributeName').val(data.name);
-                            console.log(data.name);
 
                             $('#edittype').val(data.type);
                             $('#editstatus').val(data.status);

@@ -7,6 +7,7 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property mixed $status
      * @property mixed $type
      * @property string $slug
      * @property string $name
@@ -19,6 +20,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereSlug($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute newModelQuery()

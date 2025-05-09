@@ -6,9 +6,13 @@ use App\Http\Controllers\Backend\AuthController as BackendAuthController;
 use App\Http\Controllers\Backend\CategoryController as BackendCategoryController;
 use App\Http\Controllers\Backend\SubCategoryController as BackendSubCategoryController;
 use App\Http\Controllers\Backend\AttributeController as BackendAttributeController;
+use App\Http\Controllers\Backend\AttributeValueController as BackendAttributeValueController;
 
 
-// Backend Auth Routes (no middleware)
+
+Route::get('/backend', function () {
+    return redirect()->route('backend.dashboard');
+});
 Route::prefix('backend')->name('backend.')->group(function () {
     Route::get('login', [BackendAuthController::class, 'showLoginForm'])->name('login.form');
     Route::post('login', [BackendAuthController::class, 'login'])->name('login');
@@ -17,8 +21,7 @@ Route::prefix('backend')->name('backend.')->group(function () {
 // Backend Protected Routes
 Route::prefix('backend')->middleware(['auth.check:backend'])->name('backend.')->group(function () {
 
-    // Dashboard
-    Route::redirect('/', 'dashboard');
+
 
     Route::get('dashboard', [BackendDashboardController::class, 'index'])->name('dashboard');
 
@@ -48,11 +51,19 @@ Route::prefix('backend')->middleware(['auth.check:backend'])->name('backend.')->
         Route::get('/', 'index')->name('index');
         Route::post('store', 'store')->name('store');
         Route::get('{id}/edit', 'edit')->name('edit');
-        Route::put('{id}/update', 'update')->name('update');     
+        Route::put('{id}/update', 'update')->name('update');
         Route::delete('{id}', 'destroy')->name('destroy');
     });
 
 
+    // Attribute Values
+    Route::prefix('attribute-values')->name('attribute-values.')->controller(BackendAttributeValueController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
+        Route::get('{id}/edit', 'edit')->name('edit');
+        Route::put('{id}/update', 'update')->name('update');
+        Route::delete('{id}', 'destroy')->name('destroy');
+    });
 
 
     // Route::prefix('products')->name('products.')->controller(BackendProductController::class)->group(function () {

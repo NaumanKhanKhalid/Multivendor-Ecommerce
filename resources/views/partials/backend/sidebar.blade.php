@@ -21,7 +21,7 @@
                     <hr>
                 </li>
 
-                <!-- Vendors -->
+                {{-- <!-- Vendors -->
                 <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)">
                         <i class="mdi mdi-account-group-outline"></i>
@@ -47,8 +47,8 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-
+                </li> --}}
+                {{--
                 <!-- Users -->
                 <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)">
@@ -76,7 +76,7 @@
                         </ul>
                     </div>
                     <hr>
-                </li>
+                </li> --}}
 
                 <!-- Category -->
                 <li class="has-sub">
@@ -98,8 +98,21 @@
                             </li>
                         </ul>
                     </div>
-                </li>x
+                </li>
 
+                <li>
+                    <a class="sidenav-item-link" href="{{ route('backend.attributes.index') }}">
+                        <i class="mdi mdi-star-half"></i>
+                        <span class="nav-text">Attributes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidenav-item-link" href="{{ route('backend.attribute-values.index') }}">
+                        <i class="mdi mdi-star-half"></i>
+                        <span class="nav-text">Attributes Values</span>
+                    </a>
+                </li>
+                {{--
                 <!-- Products -->
                 <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)">
@@ -243,7 +256,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
