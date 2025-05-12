@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Models\Attribute;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -14,6 +17,16 @@ class ProductController extends Controller
             return response()->json();
         }
 
-        return view('pages.backend.products.index');
+        $attributes = Attribute::orderBy("created_at", "desc")->paginate(10);
+
+        return view('pages.backend.products.index', compact('attributes'));
+    }
+
+
+    public function create()
+    {
+         $attributes = Attribute::orderBy("created_at", "desc")->paginate(10);
+
+        return view('pages.backend.products.create',compact('attributes'));
     }
 }

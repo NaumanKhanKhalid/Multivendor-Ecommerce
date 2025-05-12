@@ -277,8 +277,8 @@
                             }
                         },
                         error: function (response) {
-                            if (xhr.responseJSON.errors) {
-                                $.each(xhr.responseJSON.errors, function (key, value) {
+                            if (response.responseJSON.errors) {
+                                $.each(response.responseJSON.errors, function (key, value) {
                                     flasher.error(value[0]);
 
                                 });

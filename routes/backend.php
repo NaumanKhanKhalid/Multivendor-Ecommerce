@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController as BackendProductController;
+use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\AuthController as BackendAuthController;
 use App\Http\Controllers\Backend\CategoryController as BackendCategoryController;
@@ -66,9 +66,10 @@ Route::prefix('backend')->middleware(['auth.check:backend'])->name('backend.')->
     });
 
 
-    // Route::prefix('products')->name('products.')->controller(BackendProductController::class)->group(function () {
+    Route::prefix('products')->name('products.')->controller(BackendProductController::class)->group(function () {
 
-    //     Route::get('/', 'index')->name('index');
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
 
-    // });
+    });
 });

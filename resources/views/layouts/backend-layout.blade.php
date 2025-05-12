@@ -34,7 +34,13 @@
 
     <!-- FAVICON -->
     <link href="{{ asset('backend/assets/img/favicon.png')}}" rel="shortcut icon" />
+<style>
+   .choices__inner{
 
+       background-color: #fdfdfd !important;
+       border-radius: 15px !important;
+    }
+</style>
 </head>
 
 <body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-light ec-header-light" id="body">

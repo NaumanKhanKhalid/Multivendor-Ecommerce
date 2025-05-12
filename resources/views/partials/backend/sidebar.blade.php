@@ -112,6 +112,12 @@
                         <span class="nav-text">Attributes Values</span>
                     </a>
                 </li>
+                <li>
+                    <a class="sidenav-item-link" href="{{ route('backend.products.index') }}">
+                        <i class="mdi mdi-star-half"></i>
+                        <span class="nav-text">Products</span>
+                    </a>
+                </li>
                 {{--
                 <!-- Products -->
                 <li class="has-sub">
