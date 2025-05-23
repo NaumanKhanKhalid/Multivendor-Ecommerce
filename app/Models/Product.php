@@ -13,8 +13,22 @@ class Product extends Model
         return $this->belongsToMany(Attribute::class, 'product_attributes');
     }
 
-    public function variations()
+    
+    public function variants()
+    {
+        return $this->hasMany(related: ProductVariation::class);
+    }
+
+    public function variantValues()
     {
         return $this->hasMany(ProductVariation::class);
     }
+
+    public function variations()
+{
+    return $this->hasMany(ProductVariation::class);
+}
+
+
+
 }

@@ -145,29 +145,29 @@
 
                                 <!-- Product Form Section -->
                                 <div class="col-lg-8">
-                                    <form class="row g-3" method="POST" enctype="multipart/form-data">
+                                    <form class="row g-3" action="{{ route('backend.products.store') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
 
                                         <div class="col-md-6">
                                             <label class="form-label">Product Name</label>
-                                            <input type="text" class="form-control slug-title">
+                                            <input type="text" name="name" class="form-control slug-title">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label class="form-label">Select Categories</label>
                                             <select name="categories" class="form-select">
-                                                <optgroup label="Fashion">
-                                                    <option value="t-shirt">T-shirt</option>
-                                                    <option value="dress">Dress</option>
-                                                </optgroup>
-                                                <optgroup label="Furniture">
-                                                    <option value="table">Table</option>
-                                                    <option value="sofa">Sofa</option>
-                                                </optgroup>
-                                                <optgroup label="Electronic">
-                                                    <option value="phone">I Phone</option>
-                                                    <option value="laptop">Laptop</option>
-                                                </optgroup>
+                                                @foreach ($categories as $thisCategory)
+                                                    @if ($thisCategory->subcategories->count())
+                                                        <optgroup label="{{ $thisCategory->name }}">
+                                                            @foreach ($thisCategory->subcategories as $subcategory)
+                                                                <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    @else
+                                                        <option value="{{ $thisCategory->id }}">{{ $thisCategory->name }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -175,13 +175,13 @@
                                         <div class="col-md-12">
                                             <label><strong>Variation Method:</strong></label><br>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="variation_method"
+                                                <input class="form-check-input" type="radio" name="variation_type"
                                                     id="auto-variation" value="auto" checked>
                                                 <label class="form-check-label" for="auto-variation">Auto from
                                                     Attributes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="variation_method"
+                                                <input class="form-check-input" type="radio" name="variation_type"
                                                     id="manual-variation" value="manual">
                                                 <label class="form-check-label" for="manual-variation">Manual</label>
                                             </div>
@@ -263,8 +263,8 @@
 
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -290,7 +290,7 @@
 
             nameInput.on('input', updateVariations);
 
-            $('input[name="variation_method"]').on('change', function () {
+            $('input[name="variation_type"]').on('change', function () {
                 const method = $(this).val();
 
                 choicesInstances.forEach(instance => instance.removeActiveItems());
@@ -320,25 +320,37 @@
                         selected[attrId].push({ id: opt.value, name: $(opt).data('value-name') });
                     });
                 });
-                const selectedValues = Object.values(selected).filter(arr => arr.length);
-                const combinations = getCombinations(selectedValues);
+                const selectedValues = Object.values(selected).filter(arr => arr.length > 0);
                 tableBody.empty();
-                if (!combinations.length) return showEmptyMessageIfNeeded();
+
+                if (selectedValues.length === 0) {
+                    showEmptyMessageIfNeeded();
+                    return;
+                }
+
+                const combinations = getCombinations(selectedValues);
+
+                if (!combinations.length) {
+                    showEmptyMessageIfNeeded();
+                    return;
+                }
+
                 const productName = nameInput.val().trim().replace(/\s+/g, '-').toUpperCase() || 'SKU';
                 combinations.forEach((combo, index) => {
                     const label = combo.map(c => c.name).join(' / ');
                     const key = combo.map(c => c.id).join('_');
-                    const sku = `${productName}-${key}`;
+                    const valueNames = combo.map(c => c.name).join('-').toUpperCase();
+                    const sku = `${productName}-${valueNames}`;
                     tableBody.append(`
-                                                                                                        <tr>
-                                                                                                            <td><input type="hidden" name="variations[${index}][combination]" value="${key}">${label}</td>
-                                                                                                            <td><input type="text" name="variations[${index}][sku]" class="form-control" value="${sku}"></td>
-                                                                                                            <td><input type="number" name="variations[${index}][price]" class="form-control" step="0.01" placeholder="Price"></td>
-                                                                                                            <td><input type="number" name="variations[${index}][stock]" class="form-control" placeholder="Stock"></td>
-                                                                                                            <td><input type="file" name="variations[${index}][image]" class="form-control-file"></td>
-                                                                                                            <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
-                                                                                                        </tr>
-                                                                                                    `);
+                                    <tr>
+                                        <td><input type="hidden" name="variations[${index}][combination]" value="${key}">${label}</td>
+                                        <td><input type="text" name="variations[${index}][sku]" class="form-control" value="${sku}"></td>
+                                        <td><input type="number" name="variations[${index}][price]" class="form-control" step="0.01" placeholder="Price"></td>
+                                        <td><input type="number" name="variations[${index}][stock]" class="form-control" placeholder="Stock"></td>
+                                        <td><input type="file" name="variations[${index}][image]" class="form-control-file"></td>
+                                        <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
+                                    </tr>
+                                `);
                 });
             }
 
@@ -375,25 +387,25 @@
                 const attributesHtml = [];
                 @foreach ($attributes as $attribute)
                     attributesHtml.push(`
-                                                                                                                                                                                                <div class="form-group mb-1">
-                                                                                                                                                                                                    <label>{{ $attribute->name }}</label>
-                                                                                                                                                                                                    <select name="variations[${manualVariationIndex}][attributes][{{ $attribute->id }}]" class="form-control form-control-sm">
-                                                                                                                                                                                                        <option value="">-- Select {{ $attribute->name }} --</option>
-                                                                                                                                                                                                        @foreach ($attribute->values as $value)
-                                                                                                                                                                                                            <option value="{{ $value->id }}">{{ $value->value }}</option>
-                                                                                                                                                                                                        @endforeach
-                                                                                                                                                                                                    </select>
-                                                                                                                                                                                                </div>`);
+                                        <div class="form-group mb-1">
+                                            <label>{{ $attribute->name }}</label>
+                                            <select name="variations[${manualVariationIndex}][attributes][{{ $attribute->id }}]" class="form-control form-control-sm">
+                                                <option value="">-- Select {{ $attribute->name }} --</option>
+                                                @foreach ($attribute->values as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>`);
                 @endforeach
                 tableBody.append(`
-                                                                                                    <tr data-manual-index="${manualVariationIndex}">
-                                                                                                        <td>${attributesHtml.join('')}<input type="hidden" name="variations[${manualVariationIndex}][combination]" value=""></td>
-                                                                                                        <td><input type="text" name="variations[${manualVariationIndex}][sku]" class="form-control" value="${name}-MANUAL-${manualVariationIndex}"></td>
-                                                                                                        <td><input type="number" name="variations[${manualVariationIndex}][price]" class="form-control" step="0.01" placeholder="Price"></td>
-                                                                                                        <td><input type="number" name="variations[${manualVariationIndex}][stock]" class="form-control" placeholder="Stock"></td>
-                                                                                                        <td><input type="file" name="variations[${manualVariationIndex}][image]" class="form-control-file"></td>
-                                                                                                        <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
-                                                                                                    </tr>`);
+                                <tr data-manual-index="${manualVariationIndex}">
+                                    <td>${attributesHtml.join('')}<input type="hidden" name="variations[${manualVariationIndex}][combination]" value=""></td>
+                                    <td><input type="text" name="variations[${manualVariationIndex}][sku]" class="form-control" value="${name}-MANUAL-${manualVariationIndex}"></td>
+                                    <td><input type="number" name="variations[${manualVariationIndex}][price]" class="form-control" step="0.01" placeholder="Price"></td>
+                                    <td><input type="number" name="variations[${manualVariationIndex}][stock]" class="form-control" placeholder="Stock"></td>
+                                    <td><input type="file" name="variations[${manualVariationIndex}][image]" class="form-control-file"></td>
+                                    <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
+                                </tr>`);
                 manualVariationIndex++;
             });
 

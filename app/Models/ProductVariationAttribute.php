@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductVariationAttribute extends Model
 {
+      public $timestamps = false;
     protected $fillable = ['product_variation_id', 'attribute_id', 'attribute_value_id'];
 
     public function variation()

@@ -1897,6 +1897,10 @@ namespace App\Models {
      * @property int $id
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Attribute> $attributes
      * @property-read int|null $attributes_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductVariation> $variants
+     * @property-read int|null $variants_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductVariation> $variantValues
+     * @property-read int|null $variantValues_count
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductVariation> $variations
      * @property-read int|null $variations_count
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereId($value)
@@ -2816,11 +2820,13 @@ namespace App\Models {
      * @property string $sku
      * @property mixed $product_id
      * @property int $id
-     * @property-read \App\Models\Product $product
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductVariationAttribute> $variationAttributes
      * @property-read int|null $variationAttributes_count
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AttributeValue> $attributeValues
      * @property-read int|null $attributeValues_count
+     * @property-read \App\Models\Product $product
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductVariationAttribute> $attributes
+     * @property-read int|null $attributes_count
      * @method static \Illuminate\Database\Eloquent\Builder<ProductVariation>|ProductVariation whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<ProductVariation>|ProductVariation whereProductId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<ProductVariation>|ProductVariation whereSku($value)

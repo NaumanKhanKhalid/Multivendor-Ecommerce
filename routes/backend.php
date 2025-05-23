@@ -70,6 +70,7 @@ Route::prefix('backend')->middleware(['auth.check:backend'])->name('backend.')->
 
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
 
     });
 });
