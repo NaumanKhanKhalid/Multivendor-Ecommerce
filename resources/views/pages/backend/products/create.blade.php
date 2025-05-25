@@ -25,121 +25,49 @@
                                 <div class="col-lg-4">
                                     <div class="ec-vendor-img-upload">
                                         <div class="ec-vendor-main-img">
-                                            <div class="avatar-upload">
+                                            <!-- Banner Image Upload -->
+                                            <div class="avatar-upload banner_image">
                                                 <div class="avatar-edit">
-                                                    <input type='file' id="imageUpload" class="ec-image-upload"
-                                                        accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><img
-                                                            src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                            class="svg_img header_svg" alt="edit" /></label>
+                                                    <input type='file' id="banner_image" name="banner_image"
+                                                        class="ec-image-upload" accept=".png, .jpg, .jpeg" />
+                                                    <label for="banner_image">
+                                                        <img src="{{ asset('backend/assets/img/icons/edit.svg') }}"
+                                                            class="svg_img header_svg" alt="edit" />
+                                                    </label>
                                                 </div>
                                                 <div class="avatar-preview ec-preview">
                                                     <div class="imagePreview ec-div-preview">
                                                         <img class="ec-image-preview"
-                                                            src="{{ asset('backend/assets/img/products/vender-upload-preview.jpg')}}"
-                                                            alt="edit" />
+                                                            src="{{ asset('backend/assets/img/products/vender-upload-preview.jpg') }}"
+                                                            alt="Banner preview" />
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- Thumbnail Uploads -->
                                             <div class="thumb-upload-set colo-md-12">
-                                                <div class="thumb-upload">
-                                                    <div class="thumb-edit">
-                                                        <input type='file' id="thumbUpload01" class="ec-image-upload"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <label for="imageUpload"><img
-                                                                src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                                class="svg_img header_svg" alt="edit" /></label>
-                                                    </div>
-                                                    <div class="thumb-preview ec-preview">
-                                                        <div class="image-thumb-preview">
-                                                            <img class="image-thumb-preview ec-image-preview"
-                                                                src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg')}}"
-                                                                alt="edit" />
+                                                @for ($i = 1; $i <= 6; $i++)
+                                                    <div class="thumb-upload">
+                                                        <div class="thumb-edit">
+                                                            <input type='file' id="thumbUpload0{{ $i }}" name="thumbnails[]"
+                                                                class="ec-image-upload" accept=".png, .jpg, .jpeg" />
+                                                            <label for="thumbUpload0{{ $i }}">
+                                                                <img src="{{ asset('backend/assets/img/icons/edit.svg') }}"
+                                                                    class="svg_img header_svg" alt="edit" />
+                                                            </label>
+                                                        </div>
+                                                        <div class="thumb-preview ec-preview">
+                                                            <div class="image-thumb-preview">
+                                                                <img class="image-thumb-preview ec-image-preview"
+                                                                    src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg') }}"
+                                                                    alt="Thumbnail preview {{ $i }}" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="thumb-upload">
-                                                    <div class="thumb-edit">
-                                                        <input type='file' id="thumbUpload02" class="ec-image-upload"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <label for="imageUpload"><img
-                                                                src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                                class="svg_img header_svg" alt="edit" /></label>
-                                                    </div>
-                                                    <div class="thumb-preview ec-preview">
-                                                        <div class="image-thumb-preview">
-                                                            <img class="image-thumb-preview ec-image-preview"
-                                                                src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg')}}"
-                                                                alt="edit" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-upload">
-                                                    <div class="thumb-edit">
-                                                        <input type='file' id="thumbUpload03" class="ec-image-upload"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <label for="imageUpload"><img
-                                                                src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                                class="svg_img header_svg" alt="edit" /></label>
-                                                    </div>
-                                                    <div class="thumb-preview ec-preview">
-                                                        <div class="image-thumb-preview">
-                                                            <img class="image-thumb-preview ec-image-preview"
-                                                                src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg')}}"
-                                                                alt="edit" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-upload">
-                                                    <div class="thumb-edit">
-                                                        <input type='file' id="thumbUpload04" class="ec-image-upload"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <label for="imageUpload"><img
-                                                                src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                                class="svg_img header_svg" alt="edit" /></label>
-                                                    </div>
-                                                    <div class="thumb-preview ec-preview">
-                                                        <div class="image-thumb-preview">
-                                                            <img class="image-thumb-preview ec-image-preview"
-                                                                src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg')}}"
-                                                                alt="edit" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-upload">
-                                                    <div class="thumb-edit">
-                                                        <input type='file' id="thumbUpload05" class="ec-image-upload"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <label for="imageUpload"><img
-                                                                src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                                class="svg_img header_svg" alt="edit" /></label>
-                                                    </div>
-                                                    <div class="thumb-preview ec-preview">
-                                                        <div class="image-thumb-preview">
-                                                            <img class="image-thumb-preview ec-image-preview"
-                                                                src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg')}}"
-                                                                alt="edit" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-upload">
-                                                    <div class="thumb-edit">
-                                                        <input type='file' id="thumbUpload06" class="ec-image-upload"
-                                                            accept=".png, .jpg, .jpeg" />
-                                                        <label for="imageUpload"><img
-                                                                src="{{ asset('backend/assets/img/icons/edit.svg')}}"
-                                                                class="svg_img header_svg" alt="edit" /></label>
-                                                    </div>
-                                                    <div class="thumb-preview ec-preview">
-                                                        <div class="image-thumb-preview">
-                                                            <img class="image-thumb-preview ec-image-preview"
-                                                                src="{{ asset('backend/assets/img/products/vender-upload-thumb-preview.jpg')}}"
-                                                                alt="edit" />
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @endfor
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -149,14 +77,16 @@
                                         enctype="multipart/form-data">
                                         @csrf
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mb-3">
                                             <label class="form-label">Product Name</label>
-                                            <input type="text" name="name" class="form-control slug-title">
+                                            <input type="text" name="name" class="form-control slug-title"
+                                                placeholder="Enter product name">
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mb-3">
                                             <label class="form-label">Select Categories</label>
-                                            <select name="categories" class="form-select">
+                                            <select name="categories" style="border-radius: 10px" class="form-select">
+                                                <option value="" disabled selected>Select a category</option>
                                                 @foreach ($categories as $thisCategory)
                                                     @if ($thisCategory->subcategories->count())
                                                         <optgroup label="{{ $thisCategory->name }}">
@@ -171,8 +101,80 @@
                                             </select>
                                         </div>
 
+                                        <div class="col-md-6 mb-3" id="stock">
+                                            <label class="form-label">Stock</label>
+                                            <input type="number" name="stock" class="form-control"
+                                                placeholder="Enter stock quantity" min="0">
+                                        </div>
+
+                                        <div class="col-md-6 mb-3" id="price">
+                                            <label class="form-label">Price</label>
+                                            <input type="number" name="price" class="form-control" placeholder="Enter price"
+                                                step="0.01" min="0">
+                                        </div>
+
+                                        <div class="col-md-6 mb-3" id="sku">
+                                            <label class="form-label">SKU</label>
+                                            <input type="text" name="sku" class="form-control"
+                                                placeholder="Enter SKU (e.g. ABC123)">
+                                        </div>
+
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label">Short Description</label>
+                                            <textarea rows="3" name="short_description" class="form-control" maxlength="255"
+                                                id="short_description"
+                                                placeholder="Brief description (max 255 characters)"></textarea>
+                                        </div>
+
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label">Long Description</label>
+                                            <textarea rows="5" name="long_description" class="form-control"
+                                                placeholder="Detailed product description"></textarea>
+                                        </div>
+
+                                        <div class="col-md-12 mt-4">
+                                            <label><strong>Meta Data</strong></label>
+                                            <button type="button" class="btn btn-primary btn-sm mt-2 float-end"
+                                                id="add-meta-row">Add Meta Data</button>
+                                        </div>
+
+                                        <div class="col-md-12 mt-3">
+                                            <div id="meta-data-container">
+                                                <div class="meta-row row align-items-center mb-2">
+                                                    <div class="col-md-5 mb-3">
+                                                        <input type="text" name="meta_keys[]" class="form-control"
+                                                            placeholder="Meta Key (e.g. Weight)">
+                                                    </div>
+                                                    <div class="col-md-5 mb-3">
+                                                        <input type="text" name="meta_values[]" class="form-control"
+                                                            placeholder="Meta Value (e.g. 1000 g)">
+                                                    </div>
+                                                    <div class="col-auto ps-0 mb-3">
+                                                        <button type="button"
+                                                            class="btn btn-danger btn-sm remove-meta">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label"><strong>Product Type:</strong></label><br>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input product_type" type="radio"
+                                                    name="product_type" id="simple" value="simple" checked>
+                                                <label class="form-check-label" for="simple">Simple</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input product_type" type="radio"
+                                                    name="product_type" id="variable" value="variable">
+                                                <label class="form-check-label" for="variable">Variable</label>
+                                            </div>
+                                        </div>
+
                                         <!-- Variation Method -->
-                                        <div class="col-md-12">
+                                        <div class="col-md-6" id="variation_method">
                                             <label><strong>Variation Method:</strong></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="variation_type"
@@ -205,15 +207,13 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-
                                                     </div>
                                                 </div>
                                             @endforeach
                                         </div>
 
-
                                         <!-- Bulk Actions -->
-                                        <div class="col-12">
+                                        <div class="col-12" id="variation_buttons_div">
                                             <button type="button" class="btn btn-secondary btn-sm" id="clone-price">Clone
                                                 Price</button>
                                             <button type="button" class="btn btn-secondary btn-sm" id="clone-stock">Clone
@@ -225,26 +225,30 @@
                                         </div>
 
                                         <!-- Variations Table -->
-                                        <div class="col-12 mt-4">
+                                        <div class="col-12 mt-4" id="variations-table-div">
                                             <h4>Generated Variations:</h4>
-                                            <table class="table table-bordered table-striped" id="variations-table">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>Variation</th>
-                                                        <th>SKU</th>
-                                                        <th>Price ($)</th>
-                                                        <th>Stock</th>
-                                                        <th>Image</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="6" class="text-center">Select attributes to generate
-                                                            variations</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div id="variations-table-wrapper">
+
+                                                <table class="table table-bordered table-striped" id="variations-table">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th>Variation</th>
+                                                            <th>SKU</th>
+                                                            <th>Price ($)</th>
+                                                            <th>Stock</th>
+                                                            <th>Image</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="6" class="text-center">Select attributes to
+                                                                generate
+                                                                variations</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <!-- Submit -->
@@ -252,6 +256,7 @@
                                             <button type="submit" class="btn btn-primary mt-3">Save Product</button>
                                         </div>
                                     </form>
+
                                 </div> <!-- End col-lg-8 -->
                             </div>
                         </div>
@@ -268,12 +273,17 @@
 
     <script>
         $(document).ready(function () {
+            // Declare variables first
             const selects = $('.attribute-select');
             const tableBody = $('#variations-table tbody');
             const nameInput = $('input[name="name"]');
             const choicesInstances = [];
             let manualVariationIndex = 1000;
 
+            // Now safe to call this function
+            handleProductTypeChange();
+
+            // Initialize Choices.js on selects and bind events
             selects.each(function () {
                 const choicesInstance = new Choices(this, { removeItemButton: true, shouldSort: false });
                 choicesInstances.push(choicesInstance);
@@ -294,14 +304,12 @@
                 const method = $(this).val();
 
                 choicesInstances.forEach(instance => instance.removeActiveItems());
-                tableBody.html('<tr><td colspan="6" class="text-center">All variations removed. Select attributes to regenerate.</td></tr>');
+                tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations.   </td></tr>');
 
                 if (method === 'auto') {
                     $('#attribute-selectors').show();
                     $('#add-manual-variation').hide();
                     $('.attribute-select').prop('disabled', false);
-
-
                 } else {
                     $('#attribute-selectors').hide();
                     $('#add-manual-variation').show();
@@ -310,6 +318,47 @@
                 }
             });
 
+            // Product type change event
+            $('.product_type').on('change', handleProductTypeChange);
+
+            function handleProductTypeChange() {
+                const type = $('.product_type:checked').val();
+                const variationMethod = $('input[name="variation_type"]:checked').val();
+
+                if (type === 'simple') {
+                    choicesInstances.forEach(instance => instance.removeActiveItems());
+                    tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations.</td></tr>');
+                    $('#attribute-selectors').hide();
+                    $('#add-manual-variation').hide();
+                    $('#variations-table-div').hide();
+                    $('#variation_buttons_div').hide();
+                    $('#stock').show();
+                    $('#price').show();
+                    $('#sku').show();
+                    $('#variation_method').hide();
+                    $('#variations-table tbody').empty().html('<tr><td colspan="6" class="text-center">Select attributes to generate variations.</td></tr>');
+                    $('.attribute-select').each(function () {
+                        const choicesInstance = $(this).data('choices');
+                        if (choicesInstance) choicesInstance.removeActiveItems();
+                    });
+                } else {
+                    $('#variations-table-div').show();
+                    $('#variation_buttons_div').show();
+                    $('#variation_method').show();
+                    $('#stock').hide();
+                    $('#price').hide();
+                    $('#sku').hide();
+                    if (variationMethod === 'auto') {
+                        $('#attribute-selectors').show();
+                        $('#add-manual-variation').hide();
+                        $('.attribute-select').prop('disabled', false);
+                    } else {
+                        $('#attribute-selectors').hide();
+                        $('#add-manual-variation').show();
+                        $('.attribute-select').prop('disabled', true);
+                    }
+                }
+            }
 
             function updateVariations() {
                 const selected = {};
@@ -342,15 +391,15 @@
                     const valueNames = combo.map(c => c.name).join('-').toUpperCase();
                     const sku = `${productName}-${valueNames}`;
                     tableBody.append(`
-                                    <tr>
-                                        <td><input type="hidden" name="variations[${index}][combination]" value="${key}">${label}</td>
-                                        <td><input type="text" name="variations[${index}][sku]" class="form-control" value="${sku}"></td>
-                                        <td><input type="number" name="variations[${index}][price]" class="form-control" step="0.01" placeholder="Price"></td>
-                                        <td><input type="number" name="variations[${index}][stock]" class="form-control" placeholder="Stock"></td>
-                                        <td><input type="file" name="variations[${index}][image]" class="form-control-file"></td>
-                                        <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
-                                    </tr>
-                                `);
+                                                                                                                                                                                                <tr>
+                                                                                                                                                                                                    <td><input type="hidden" name="variations[${index}][combination]" value="${key}">${label}</td>
+                                                                                                                                                                                                    <td><input type="text" name="variations[${index}][sku]" class="form-control" value="${sku}"></td>
+                                                                                                                                                                                                    <td><input type="number" name="variations[${index}][price]" class="form-control" step="0.01" placeholder="Price"></td>
+                                                                                                                                                                                                    <td><input type="number" name="variations[${index}][stock]" class="form-control" placeholder="Stock"></td>
+                                                                                                                                                                                                    <td><input type="file" name="variations[${index}][image]" class="form-control-file"></td>
+                                                                                                                                                                                                    <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
+                                                                                                                                                                                                </tr>
+                                                                                                                                                                                            `);
                 });
             }
 
@@ -378,7 +427,7 @@
             });
 
             $('#delete-all-variations').on('click', function () {
-                tableBody.html('<tr><td colspan="6" class="text-center">All variations removed. Select attributes to regenerate.</td></tr>');
+                tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations..</td></tr>');
                 choicesInstances.forEach(instance => instance.removeActiveItems());
             });
 
@@ -387,25 +436,27 @@
                 const attributesHtml = [];
                 @foreach ($attributes as $attribute)
                     attributesHtml.push(`
-                                        <div class="form-group mb-1">
-                                            <label>{{ $attribute->name }}</label>
-                                            <select name="variations[${manualVariationIndex}][attributes][{{ $attribute->id }}]" class="form-control form-control-sm">
-                                                <option value="">-- Select {{ $attribute->name }} --</option>
-                                                @foreach ($attribute->values as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>`);
+                                                                                                                                                                                                                                                                                                                                                                                <div class="form-group mb-1">
+                                                                                                                                                                                                                                                                                                                                                                                    <label>{{ $attribute->name }}</label>
+                                                                                                                                                                                                                                                                                                                                                                                    <select name="variations[${manualVariationIndex}][attributes][{{ $attribute->id }}]" class="form-control form-control-sm">
+                                                                                                                                                                                                                                                                                                                                                                                        <option value="">-- Select {{ $attribute->name }} --</option>
+                                                                                                                                                                                                                                                                                                                                                                                        @foreach ($attribute->values as $value)
+                                                                                                                                                                                                                                                                                                                                                                                            <option value="{{ $value->id }}">{{ $value->value }}</option>
+                                                                                                                                                                                                                                                                                                                                                                                        @endforeach
+                                                                                                                                                                                                                                                                                                                                                                                    </select>
+                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                            `);
                 @endforeach
                 tableBody.append(`
-                                <tr data-manual-index="${manualVariationIndex}">
-                                    <td>${attributesHtml.join('')}<input type="hidden" name="variations[${manualVariationIndex}][combination]" value=""></td>
-                                    <td><input type="text" name="variations[${manualVariationIndex}][sku]" class="form-control" value="${name}-MANUAL-${manualVariationIndex}"></td>
-                                    <td><input type="number" name="variations[${manualVariationIndex}][price]" class="form-control" step="0.01" placeholder="Price"></td>
-                                    <td><input type="number" name="variations[${manualVariationIndex}][stock]" class="form-control" placeholder="Stock"></td>
-                                    <td><input type="file" name="variations[${manualVariationIndex}][image]" class="form-control-file"></td>
-                                    <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
-                                </tr>`);
+                                                                                                                                                                                            <tr data-manual-index="${manualVariationIndex}">
+                                                                                                                                                                                                <td>${attributesHtml.join('')}<input type="hidden" name="variations[${manualVariationIndex}][combination]" value=""></td>
+                                                                                                                                                                                                <td><input type="text" name="variations[${manualVariationIndex}][sku]" class="form-control" value="${name}-MANUAL-${manualVariationIndex}"></td>
+                                                                                                                                                                                                <td><input type="number" name="variations[${manualVariationIndex}][price]" class="form-control" step="0.01" placeholder="Price"></td>
+                                                                                                                                                                                                <td><input type="number" name="variations[${manualVariationIndex}][stock]" class="form-control" placeholder="Stock"></td>
+                                                                                                                                                                                                <td><input type="file" name="variations[${manualVariationIndex}][image]" class="form-control-file"></td>
+                                                                                                                                                                                                <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
+                                                                                                                                                                                            </tr>
+                                                                                                                                                                                        `);
                 manualVariationIndex++;
             });
 
@@ -414,14 +465,29 @@
                     tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations</td></tr>');
                 }
             }
-            $('.attribute-select').select2({
-                placeholder: function () {
-                    return $(this).data('placeholder');
-                },
-                allowClear: true, // Optional clear button
-                width: '100%'
+
+
+            $('#add-meta-row').click(function () {
+                const newRow = $(`
+                                                                                                        <div class="meta-row row align-items-center mb-2">
+                                                                                                            <div class="col-md-5 mb-10">
+                                                                                                                <input type="text" name="meta_keys[]" class="form-control" placeholder="Meta Key (e.g. Weight)">
+                                                                                                            </div>
+                                                                                                            <div class="col-md-5 mb-10">
+                                                                                                                <input type="text" name="meta_values[]" class="form-control" placeholder="Meta Value (e.g. 1000 g)">
+                                                                                                            </div>
+                                                                                                            <div class="col-auto mb-10 ps-0">
+                                                                                                                <button type="button" class="btn btn-danger btn-sm remove-meta">Remove</button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    `);
+                $('#meta-data-container').append(newRow);
             });
 
+            $(document).on('click', '.remove-meta', function () {
+                $(this).closest('.meta-row').remove();
+            });
         });
     </script>
+
 @endsection
