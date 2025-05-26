@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->insert([
-            ['name' => 'T-Shirt', 'slug' => 't-shirt', 'description' => 'Basic T-shirt', 'price' => 10.00, 'type' => 'variable', 'status' => 'active', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'T-Shirt', 'slug' => 't-shirt', 'long_description' => 'Basic T-shirt', 'price' => 10.00, 'type' => 'variable','sku' =>'T-shirt', 'status' => 'active', 'created_at' => now(), 'updated_at' => now()],
         ]);
         
     }

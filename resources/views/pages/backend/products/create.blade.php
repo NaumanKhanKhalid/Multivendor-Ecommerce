@@ -73,7 +73,8 @@
 
                                 <!-- Product Form Section -->
                                 <div class="col-lg-8">
-                                    <form class="row g-3" action="{{ route('backend.products.store') }}" method="POST"
+                                    <form class="row g-3" id="create-product-form"
+                                        action="{{ route('backend.products.store') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
 
@@ -85,8 +86,8 @@
 
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">Select Categories</label>
-                                            <select name="categories" style="border-radius: 10px" class="form-select">
-                                                <option value="" disabled selected>Select a category</option>
+                                            <select name="categories[]" multiple class="form-control category-select"
+                                                data-placeholder="Select categories">
                                                 @foreach ($categories as $thisCategory)
                                                     @if ($thisCategory->subcategories->count())
                                                         <optgroup label="{{ $thisCategory->name }}">
@@ -100,6 +101,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
 
                                         <div class="col-md-6 mb-3" id="stock">
                                             <label class="form-label">Stock</label>
@@ -265,14 +267,112 @@
             </div>
         </div> <!-- End Content -->
     </div> <!-- End Wrapper -->
-
-
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
+
     <script>
+
         $(document).ready(function () {
+
+              
+
+        
+            // $('#create-product-form').on('submit', function (e) {
+            //     e.preventDefault();
+            //     let form = this;
+            //     let formData = new FormData(form); // initialize with form fields
+
+            //     // 🔁 Append banner image (outside the form)
+            //     let bannerImage = $('#banner_image')[0].files[0];
+            //     if (bannerImage) {
+            //         formData.append('banner_image', bannerImage);
+            //     }
+
+            //     // 🔁 Append thumbnails (outside the form)
+            //     $('input[name="thumbnails[]"]').each(function () {
+            //         if (this.files[0]) {
+            //             formData.append('thumbnails[]', this.files[0]);
+            //         }
+            //     });
+
+            //     // ⛔ Optional: Disable submit button during request
+            //     let submitBtn = $(form).find('button[type="submit"]');
+            //     submitBtn.prop('disabled', true).text('Saving...');
+
+            //     // 🛡️ CSRF token setup
+            //     $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         }
+            //     });
+
+            //     // ✅ AJAX request
+            //     $.ajax({
+            //         url: $(form).attr('action'),
+            //         method: 'POST',
+            //         data: formData,
+            //         contentType: false,
+            //         processData: false,
+            //         success: function (res) {
+            //             flasher.success('Your message has been sent!', 'Thank You');
+
+            //             // alert('Product saved successfully!');
+            //             console.log(res);
+            //             // Optional: reset form or redirect
+            //         },
+            //         error: function (xhr) {
+            //             alert('Failed to save product.');
+            //             console.error(xhr.responseText);
+            //         },
+            //         complete: function () {
+            //             submitBtn.prop('disabled', false).text('Save Product');
+            //         }
+            //     });
+            // });
+$(document).on('click', '.btn-primary[type="submit"]', function (e) {
+    e.preventDefault();
+
+    let form = $(this).closest('form')[0];
+    let formData = new FormData(form);
+
+    // Manually append image data outside the form
+    let bannerImage = $('#banner_image')[0].files[0];
+    if (bannerImage) {
+        formData.append('banner_image', bannerImage);
+    }
+
+    $('input[name="thumbnails[]"]').each(function(index, input) {
+        if (input.files[0]) {
+            formData.append('thumbnails[]', input.files[0]);
+        }
+    });
+
+    // Optional: show loading spinner or disable button
+
+    $.ajax({
+        url: form.action,
+        method: form.method,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            // Optional: use PHPFlasher or toastr for flash message
+            flasher.success("Product created successfully!");
+            window.location.href = "{{ route('backend.products.index') }}";
+        },
+        error: function (xhr) {
+            console.error(xhr.responseJSON);
+            if (xhr.responseJSON?.errors) {
+                let errors = xhr.responseJSON.errors;
+                let messages = Object.values(errors).flat().join('<br>');
+                flasher.error(messages);
+            } else {
+                flasher.error("Something went wrong.");
+            }
+        }
+    });
+});
             // Declare variables first
             const selects = $('.attribute-select');
             const tableBody = $('#variations-table tbody');
@@ -304,7 +404,7 @@
                 const method = $(this).val();
 
                 choicesInstances.forEach(instance => instance.removeActiveItems());
-                tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations.   </td></tr>');
+                tableBody.html('<tr>< td colspan="6" class="text-center"> Select attributes to generate variations. </td></tr> ');
 
                 if (method === 'auto') {
                     $('#attribute-selectors').show();
@@ -327,7 +427,7 @@
 
                 if (type === 'simple') {
                     choicesInstances.forEach(instance => instance.removeActiveItems());
-                    tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations.</td></tr>');
+                    tableBody.html('<tr><td colspan="6" class="text-center"> Select attributes to generate variations.</td></tr> ');
                     $('#attribute-selectors').hide();
                     $('#add-manual-variation').hide();
                     $('#variations-table-div').hide();
@@ -336,7 +436,7 @@
                     $('#price').show();
                     $('#sku').show();
                     $('#variation_method').hide();
-                    $('#variations-table tbody').empty().html('<tr><td colspan="6" class="text-center">Select attributes to generate variations.</td></tr>');
+                    $('#variations-table tbody').empty().html('<tr>< td colspan="6" class="text-center"> Select attributes to generate variations.</td> </tr> ');
                     $('.attribute-select').each(function () {
                         const choicesInstance = $(this).data('choices');
                         if (choicesInstance) choicesInstance.removeActiveItems();
@@ -391,15 +491,16 @@
                     const valueNames = combo.map(c => c.name).join('-').toUpperCase();
                     const sku = `${productName}-${valueNames}`;
                     tableBody.append(`
-                                                                                                                                                                                                <tr>
-                                                                                                                                                                                                    <td><input type="hidden" name="variations[${index}][combination]" value="${key}">${label}</td>
-                                                                                                                                                                                                    <td><input type="text" name="variations[${index}][sku]" class="form-control" value="${sku}"></td>
-                                                                                                                                                                                                    <td><input type="number" name="variations[${index}][price]" class="form-control" step="0.01" placeholder="Price"></td>
-                                                                                                                                                                                                    <td><input type="number" name="variations[${index}][stock]" class="form-control" placeholder="Stock"></td>
-                                                                                                                                                                                                    <td><input type="file" name="variations[${index}][image]" class="form-control-file"></td>
-                                                                                                                                                                                                    <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
-                                                                                                                                                                                                </tr>
-                                                                                                                                                                                            `);
+            <tr>
+                <td><input type="hidden" name="variations[${index}][combination]" value="${key}">${label}</td>
+                <td><input type="text" name="variations[${index}][sku]" class="form-control" value="${sku}"></td>
+                <td><input type="number" name="variations[${index}][price]" class="form-control" step="0.01" placeholder="Price">
+                </td>
+                <td><input type="number" name="variations[${index}][stock]" class="form-control" placeholder="Stock"></td>
+                <td><input type="file" name="variations[${index}][image]" class="form-control-file"></td>
+                <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
+            </tr>
+            `);
                 });
             }
 
@@ -427,7 +528,7 @@
             });
 
             $('#delete-all-variations').on('click', function () {
-                tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations..</td></tr>');
+                tableBody.html('<tr>  < td colspan="6" class="text-center"> Select attributes to generate variations..</td> </tr> ');
                 choicesInstances.forEach(instance => instance.removeActiveItems());
             });
 
@@ -436,57 +537,70 @@
                 const attributesHtml = [];
                 @foreach ($attributes as $attribute)
                     attributesHtml.push(`
-                                                                                                                                                                                                                                                                                                                                                                                <div class="form-group mb-1">
-                                                                                                                                                                                                                                                                                                                                                                                    <label>{{ $attribute->name }}</label>
-                                                                                                                                                                                                                                                                                                                                                                                    <select name="variations[${manualVariationIndex}][attributes][{{ $attribute->id }}]" class="form-control form-control-sm">
-                                                                                                                                                                                                                                                                                                                                                                                        <option value="">-- Select {{ $attribute->name }} --</option>
-                                                                                                                                                                                                                                                                                                                                                                                        @foreach ($attribute->values as $value)
-                                                                                                                                                                                                                                                                                                                                                                                            <option value="{{ $value->id }}">{{ $value->value }}</option>
-                                                                                                                                                                                                                                                                                                                                                                                        @endforeach
-                                                                                                                                                                                                                                                                                                                                                                                    </select>
-                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                            `);
+                            <div class="form-group mb-1">
+                                <label>{{ $attribute->name }}</label>
+                                <select name="variations[${manualVariationIndex}][attributes][{{ $attribute->id }}]"
+                                    class="form-control form-control-sm">
+                                    <option value="">-- Select {{ $attribute->name }} --</option>
+                                    @foreach ($attribute->values as $value)
+                                        <option value="{{ $value->id }}">{{ $value->value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            `);
                 @endforeach
                 tableBody.append(`
-                                                                                                                                                                                            <tr data-manual-index="${manualVariationIndex}">
-                                                                                                                                                                                                <td>${attributesHtml.join('')}<input type="hidden" name="variations[${manualVariationIndex}][combination]" value=""></td>
-                                                                                                                                                                                                <td><input type="text" name="variations[${manualVariationIndex}][sku]" class="form-control" value="${name}-MANUAL-${manualVariationIndex}"></td>
-                                                                                                                                                                                                <td><input type="number" name="variations[${manualVariationIndex}][price]" class="form-control" step="0.01" placeholder="Price"></td>
-                                                                                                                                                                                                <td><input type="number" name="variations[${manualVariationIndex}][stock]" class="form-control" placeholder="Stock"></td>
-                                                                                                                                                                                                <td><input type="file" name="variations[${manualVariationIndex}][image]" class="form-control-file"></td>
-                                                                                                                                                                                                <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
-                                                                                                                                                                                            </tr>
-                                                                                                                                                                                        `);
+            <tr data-manual-index="${manualVariationIndex}">
+                <td>${attributesHtml.join('')}<input type="hidden" name="variations[${manualVariationIndex}][combination]" value="">
+                </td>
+                <td><input type="text" name="variations[${manualVariationIndex}][sku]" class="form-control"
+                        value="${name}-MANUAL-${manualVariationIndex}"></td>
+                <td><input type="number" name="variations[${manualVariationIndex}][price]" class="form-control" step="0.01"
+                        placeholder="Price"></td>
+                <td><input type="number" name="variations[${manualVariationIndex}][stock]" class="form-control" placeholder="Stock">
+                </td>
+                <td><input type="file" name="variations[${manualVariationIndex}][image]" class="form-control-file"></td>
+                <td><button type="button" class="btn btn-danger btn-sm remove-variation">Remove</button></td>
+            </tr>
+            `);
                 manualVariationIndex++;
             });
 
             function showEmptyMessageIfNeeded() {
                 if ($('#variations-table tbody tr').length === 0) {
-                    tableBody.html('<tr><td colspan="6" class="text-center">Select attributes to generate variations</td></tr>');
+                    tableBody.html('<tr> < td colspan="6" class="text-center"> Select attributes to generate variations</td></tr>');
                 }
             }
 
 
             $('#add-meta-row').click(function () {
                 const newRow = $(`
-                                                                                                        <div class="meta-row row align-items-center mb-2">
-                                                                                                            <div class="col-md-5 mb-10">
-                                                                                                                <input type="text" name="meta_keys[]" class="form-control" placeholder="Meta Key (e.g. Weight)">
-                                                                                                            </div>
-                                                                                                            <div class="col-md-5 mb-10">
-                                                                                                                <input type="text" name="meta_values[]" class="form-control" placeholder="Meta Value (e.g. 1000 g)">
-                                                                                                            </div>
-                                                                                                            <div class="col-auto mb-10 ps-0">
-                                                                                                                <button type="button" class="btn btn-danger btn-sm remove-meta">Remove</button>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    `);
+            <div class="meta-row row align-items-center mb-2">
+                <div class="col-md-5 mb-10">
+                    <input type="text" name="meta_keys[]" class="form-control" placeholder="Meta Key (e.g. Weight)">
+                </div>
+                <div class="col-md-5 mb-10">
+                    <input type="text" name="meta_values[]" class="form-control" placeholder="Meta Value (e.g. 1000 g)">
+                </div>
+                <div class="col-auto mb-10 ps-0">
+                    <button type="button" class="btn btn-danger btn-sm remove-meta">Remove</button>
+                </div>
+            </div>
+            `);
                 $('#meta-data-container').append(newRow);
             });
 
             $(document).on('click', '.remove-meta', function () {
                 $(this).closest('.meta-row').remove();
             });
+
+            const categorySelect = document.querySelector('.category-select');
+            if (categorySelect) {
+                new Choices(categorySelect, {
+                    removeItemButton: true,
+                    shouldSort: false,
+                });
+            }
         });
     </script>
 

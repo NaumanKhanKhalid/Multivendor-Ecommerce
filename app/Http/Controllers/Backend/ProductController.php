@@ -121,6 +121,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'categories' => 'required',
@@ -145,37 +146,36 @@ class ProductController extends Controller
                 'price' => $request->input('product_type') === 'simple' ? $request->input('price') : null,
                 'short_description' => $request->input('short_description'),
                 'long_description' => $request->input('long_description'),
-                'categories' => $request->input('categories'),
                 'type' => $request->input('product_type'),
             ]);
+
+            $product->categories()->sync($request->input('categories', []));
 
 
             if ($request->hasFile('banner_image')) {
                 $bannerPath = $request->file('banner_image')->store('products/banners', 'public');
-
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'file_path' => $bannerPath,   
-                    'is_primary' => true,        
+                    'file_path' => $bannerPath,
+                    'is_primary' => true,
                     'sort_order' => 0,
                 ]);
             }
 
+            // Handle Thumbnails
             if ($request->hasFile('thumbnails')) {
                 foreach ($request->file('thumbnails') as $index => $thumbnail) {
                     $thumbPath = $thumbnail->store('products/thumbnails', 'public');
-
                     ProductImage::create([
                         'product_id' => $product->id,
-                        'file_path' => $thumbPath,    
-                        'is_primary' => false,      
+                        'file_path' => $thumbPath,
+                        'is_primary' => false,
                         'sort_order' => $index + 1,
                     ]);
                 }
             }
 
 
-            // Save meta data
             $metaKeys = $request->input('meta_keys', []);
             $metaValues = $request->input('meta_values', []);
             foreach ($metaKeys as $index => $key) {
@@ -244,10 +244,20 @@ class ProductController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('backend.products.index')->with('success', 'Product created successfully.');
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product created successfully.',
+                'redirect' => route('backend.products.index'),
+            ]);
+            // return redirect()->route('backend.products.index')->with('success', 'Product created successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withErrors(['error' => 'Error creating product: ' . $e->getMessage()]);
+            dd($e->getMessage());
+            // return back()->withErrors(['error' => 'Error creating product: ' . $e->getMessage()]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error creating product: ' . $e->getMessage(),
+            ], 500);
         }
     }
 
