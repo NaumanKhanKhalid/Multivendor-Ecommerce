@@ -1911,6 +1911,9 @@ namespace App\Models {
      * @property-read int|null $variations_count
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
      * @property-read int|null $categories_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductImage> $sortedImages
+     * @property-read int|null $sortedImages_count
+     * @property-read \App\Models\ProductImage $primaryImage
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereSlug($value)

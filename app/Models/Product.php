@@ -31,10 +31,20 @@ class Product extends Model
         return $this->hasMany(ProductVariation::class);
     }
 
-   public function categories()
-{
-    return $this->belongsToMany(Category::class, 'product_categories');
-}
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_categories');
+    }
+    public function sortedImages()
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('sort_order');
+    }
+
+    // Primary image
+    public function primaryImage()
+    {
+        return $this->hasOne(ProductImage::class)->where('is_primary', true);
+    }
 
 
 

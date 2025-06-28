@@ -121,6 +121,22 @@
                                                 placeholder="Enter SKU (e.g. ABC123)">
                                         </div>
 
+                                                 <div class="col-md-6">
+                                            <label class="form-label"><strong>Product Type:</strong></label><br>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input product_type" type="radio"
+                                                    name="product_type" id="simple" value="simple" checked>
+                                                <label class="form-check-label" for="simple">Simple</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input product_type" type="radio"
+                                                    name="product_type" id="variable" value="variable">
+                                                <label class="form-check-label" for="variable">Variable</label>
+                                            </div>
+                                        </div>      
+
                                         <div class="col-md-12 mb-3">
                                             <label class="form-label">Short Description</label>
                                             <textarea rows="3" name="short_description" class="form-control" maxlength="255"
@@ -159,21 +175,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <label class="form-label"><strong>Product Type:</strong></label><br>
-
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input product_type" type="radio"
-                                                    name="product_type" id="simple" value="simple" checked>
-                                                <label class="form-check-label" for="simple">Simple</label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input product_type" type="radio"
-                                                    name="product_type" id="variable" value="variable">
-                                                <label class="form-check-label" for="variable">Variable</label>
-                                            </div>
-                                        </div>
+                               
 
                                         <!-- Variation Method -->
                                         <div class="col-md-6" id="variation_method">
